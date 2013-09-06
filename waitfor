@@ -6,9 +6,5 @@ then
     exit 1
 fi
 
-until (ping -c 1 $1 >/dev/null 2>&1)
-do
-  sleep 1
-done
-
-shift && $@
+until (ping -c 1 $1 >/dev/null 2>&1); do :; done
+exec ${@:2}
