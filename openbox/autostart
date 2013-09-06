@@ -1,6 +1,3 @@
 sh ~/.fehbg &
-stalonetray --dockapp-mode --kludges force_icons_size &
-remmina -i &
-waitfor steampowered.com steam -silent &
-waitfor dropbox.com dropboxd &
 setxkbmap -layout "us,ru" -option "grp:ctrl_shift_toggle,grp_led:scroll" &
+stalonetray --dockapp-mode --kludges force_icons_size &

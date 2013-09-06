@@ -245,26 +245,12 @@
         </finalactions>
       </action>
     </keybind>
-    <!-- Keybindings for window switching with the arrow keys -->
-    <keybind key="W-Right">
-      <action name="DirectionalCycleWindows">
-        <direction>right</direction>
-      </action>
-    </keybind>
-    <keybind key="W-Left">
-      <action name="DirectionalCycleWindows">
-        <direction>left</direction>
-      </action>
-    </keybind>
+    <!-- Handle expose/collapse with the arrow keys -->
     <keybind key="W-Up">
-      <action name="DirectionalCycleWindows">
-        <direction>up</direction>
-      </action>
+      <action name="ToggleFullscreen" />
     </keybind>
     <keybind key="W-Down">
-      <action name="DirectionalCycleWindows">
-        <direction>down</direction>
-      </action>
+      <action name="ToggleDecorations" />
     </keybind>
     <!-- Keybindings for running applications -->
     <keybind key="W-r">
@@ -612,20 +598,31 @@
       </mousebind>
     </context>
   </mouse>
-  <menu><!-- You can specify more than one menu file in here and they are all loaded,
-       just don't make menu ids clash or, well, it'll be kind of pointless --><!-- default menu file (or custom one in $HOME/.config/openbox/) --><file>menu.xml</file><hideDelay>200</hideDelay><!-- if a press-release lasts longer than this setting (in milliseconds), the
-       menu is hidden again --><middle>no</middle><!-- center submenus vertically about the parent entry --><submenuShowDelay>100</submenuShowDelay><!-- time to delay before showing a submenu after hovering over the parent
-       entry.
-       if this is a negative value, then the delay is infinite and the
-       submenu will not be shown until it is clicked on --><submenuHideDelay>400</submenuHideDelay><!-- time to delay before hiding a submenu when selecting another
-       entry in parent menu -->
-       if this is a negative value, then the delay is infinite and the
-       submenu will not be hidden until a different submenu is opened --&gt;
-  <applicationIcons>yes</applicationIcons>
-  <!-- controls if icons appear in the client-list-(combined-)menu -->
-  <manageDesktops>yes</manageDesktops>
-  <!-- show the manage desktops section in the client-list-(combined-)menu -->
-</menu>
+  <menu>
+    <!-- You can specify more than one menu file in here and
+         they are all loaded, just don't make menu ids clash
+         or, well, it'll be kind of pointless -->
+    <!-- default menu file (or custom one in $HOME/.config/openbox/) -->
+    <file>menu.xml</file>
+    <hideDelay>200</hideDelay>
+    <!-- if a press-release lasts longer than this setting (in
+         milliseconds), the menu is hidden again -->
+    <middle>no</middle>
+    <!-- center submenus vertically about the parent entry -->
+    <submenuShowDelay>100</submenuShowDelay>
+    <!-- time to delay before showing a submenu after hovering over the
+         parent entry. If this is a negative value, then the delay is infinite
+         and the submenu will not be shown until it is clicked on -->
+    <submenuHideDelay>400</submenuHideDelay>
+    <!-- time to delay before hiding a submenu when selecting another
+         entry in parent menu. If this is a negative value, then the delay is
+         infinite and the submenu will not be hidden until a different
+         submenu is opened -->
+    <applicationIcons>yes</applicationIcons>
+    <!-- controls if icons appear in the client-list-(combined-)menu -->
+    <manageDesktops>yes</manageDesktops>
+    <!-- show the manage desktops section in the client-list-(combined-)menu -->
+  </menu>
   <applications>
     <!--
   # this is an example with comments through out. use these to make your
