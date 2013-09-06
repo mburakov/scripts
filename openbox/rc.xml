@@ -247,10 +247,8 @@
     </keybind>
     <!-- Handle expose/collapse with the arrow keys -->
     <keybind key="W-Up">
-      <action name="ToggleFullscreen" />
-    </keybind>
-    <keybind key="W-Down">
-      <action name="ToggleDecorations" />
+      <action name="ToggleMaximize"/>
+      <action name="ToggleDecorations"/>
     </keybind>
     <!-- Keybindings for running applications -->
     <keybind key="W-r">
@@ -300,33 +298,13 @@
         <action name="FocusToBottom"/>
         <action name="Unfocus"/>
       </mousebind>
-      <mousebind button="A-Up" action="Click">
+      <mousebind button="W-Up" action="Click">
         <action name="GoToDesktop">
           <to>previous</to>
         </action>
       </mousebind>
-      <mousebind button="A-Down" action="Click">
+      <mousebind button="W-Down" action="Click">
         <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="C-A-Up" action="Click">
-        <action name="GoToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="C-A-Down" action="Click">
-        <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-S-Up" action="Click">
-        <action name="SendToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-S-Down" action="Click">
-        <action name="SendToDesktop">
           <to>next</to>
         </action>
       </mousebind>
@@ -523,32 +501,12 @@
       </mousebind>
     </context>
     <context name="Desktop">
-      <mousebind button="Up" action="Click">
+      <mousebind button="W-Up" action="Click">
         <action name="GoToDesktop">
           <to>previous</to>
         </action>
       </mousebind>
-      <mousebind button="Down" action="Click">
-        <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-Up" action="Click">
-        <action name="GoToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-Down" action="Click">
-        <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="C-A-Up" action="Click">
-        <action name="GoToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="C-A-Down" action="Click">
+      <mousebind button="W-Down" action="Click">
         <action name="GoToDesktop">
           <to>next</to>
         </action>
@@ -576,22 +534,12 @@
       </mousebind>
     </context>
     <context name="MoveResize">
-      <mousebind button="Up" action="Click">
+      <mousebind button="W-Up" action="Click">
         <action name="GoToDesktop">
           <to>previous</to>
         </action>
       </mousebind>
-      <mousebind button="Down" action="Click">
-        <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-Up" action="Click">
-        <action name="GoToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-Down" action="Click">
+      <mousebind button="W-Down" action="Click">
         <action name="GoToDesktop">
           <to>next</to>
         </action>
