@@ -251,6 +251,11 @@
       <action name="ToggleDecorations"/>
     </keybind>
     <!-- Keybindings for running applications -->
+    <keybind key="W-l">
+      <action name="Execute">
+        <command>i3lock -n -d -c 000000</command>
+      </action>
+    </keybind>
     <keybind key="W-r">
       <action name="Execute">
         <command>dmenu_run</command>
