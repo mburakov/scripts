@@ -83,6 +83,7 @@ autocmd FileType python set efm=%A%f:%l:\ [%t%.%#]\ %m,%Z%p^^,%-C%.%#,%-GNo%.%#
 let g:clang_complete_auto=1
 let g:clang_auto_select=1
 autocmd FileType cpp imap <TAB> <C-X><C-U>
+autocmd FileType c imap <TAB> <C-X><C-U>
 
 " General completion stuff
 set completeopt=menuone,menu,longest
