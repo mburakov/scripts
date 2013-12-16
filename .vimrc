@@ -25,6 +25,7 @@ function! s:DiffWithSVNCheckedOut()
   let filetype=&ft
   diffthis
   vnew | r !svn cat #
+  :1d
   diffthis
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
@@ -53,6 +54,8 @@ nmap <C-Left> <C-w>h
 nmap <C-Down> <C-w>j
 nmap <C-Up> <C-w>k
 nmap <C-Right> <C-w>l
+nmap [ :cp<CR>
+nmap ] :cn<CR>
 
 " st sends these for Ctrl+Arrow
 map <ESC>[D <C-Left>
