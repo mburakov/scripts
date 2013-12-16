@@ -248,7 +248,6 @@
     <!-- Handle expose/collapse with the arrow keys -->
     <keybind key="W-Up">
       <action name="ToggleMaximize"/>
-      <action name="ToggleDecorations"/>
     </keybind>
     <!-- Keybindings for running applications -->
     <keybind key="W-l">
@@ -264,6 +263,26 @@
     <keybind key="W-Return">
       <action name="Execute">
         <command>st -f 'liberation mono:pixelsize=16'</command>
+      </action>
+    </keybind>
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute">
+        <command>xbacklight +10</command>
+      </action>
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute">
+        <command>xbacklight -10</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute">
+        <command>amixer set Master 10+</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute">
+        <command>amixer set Master 10-</command>
       </action>
     </keybind>
   </keyboard>
@@ -658,5 +677,8 @@
 
   # end of the example
 -->
+    <application class="*">
+      <decor>no</decor>
+    </application>
   </applications>
 </openbox_config>
