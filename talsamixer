@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup st -e alsamixer >/dev/null 2>&1 &

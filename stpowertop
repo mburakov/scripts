@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nohup sudo st -e powertop >/dev/null 2>&1 &
