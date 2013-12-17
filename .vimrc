@@ -57,7 +57,7 @@ nmap <C-Right> <C-w>l
 nmap [ :cp<CR>
 nmap ] :cn<CR>
 
-" st sends these for Ctrl+Arrow
+" tmux sends these for Ctrl+Arrow
 map <ESC>[D <C-Left>
 map! <ESC>[D <C-Left>
 map <ESC>[B <C-Down>
@@ -73,20 +73,10 @@ colorscheme desertEx
 set laststatus=2
 let g:airline_powerline_fonts=1
 
-" Python stuff
-let g:jedi#auto_vim_configuration=0
-let g:jedi#popup_select_first=0
-autocmd FileType python setlocal tabstop=4 shiftwidth=4
-autocmd FileType python setlocal completefunc=jedi#complete
-autocmd FileType python imap <TAB> <C-X><C-U>
-autocmd FileType python set makeprg=pylint\ --disable=C0301,C0111\ --reports=n\ --msg-template='{path}:{line}:\ [{msg_id}({symbol}),\ {obj}]\ {msg}'\ %
-autocmd FileType python set efm=%A%f:%l:\ [%t%.%#]\ %m,%Z%p^^,%-C%.%#,%-GNo%.%#
-
 " C++ completion
 let g:clang_complete_auto=1
 let g:clang_auto_select=1
-autocmd FileType cpp imap <TAB> <C-X><C-U>
-autocmd FileType c imap <TAB> <C-X><C-U>
+autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
 
 " General completion stuff
 set completeopt=menuone,menu,longest
