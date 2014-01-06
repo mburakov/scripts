@@ -22,7 +22,7 @@ set clipboard=unnamedplus
 
 " Svn diff function
 function! s:DiffWithSVNCheckedOut()
-  let filetype=&ft
+  let filetype = &ft
   diffthis
   vnew | r !svn cat #
   :1d
@@ -30,6 +30,16 @@ function! s:DiffWithSVNCheckedOut()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSVN call s:DiffWithSVNCheckedOut()
+
+" Man function
+function! s:OpenManPage()
+  python import vim, subprocess, re
+  python cword = vim.eval('expand ("<cword>")')
+  python whatis = subprocess.Popen(['whatis', cword], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  python sect = whatis.wait() and [] or re.findall('\(([2,3,7])\)', whatis.stdout.read())
+  python sect and (vim.command('silent !man {} {}'.format(sect[0], cword)), vim.command('redraw!'))
+endfunction
+com! Man call s:OpenManPage()
 
 " Tweaks for console version
 set t_Co=256
@@ -57,7 +67,7 @@ nmap <C-Right> <C-w>l
 nmap [ :cp<CR>
 nmap ] :cn<CR>
 
-" st sends these for Ctrl+Arrow
+" tmux sends these for Ctrl+Arrow
 map <ESC>[D <C-Left>
 map! <ESC>[D <C-Left>
 map <ESC>[B <C-Down>
@@ -73,20 +83,11 @@ colorscheme desertEx
 set laststatus=2
 let g:airline_powerline_fonts=1
 
-" Python stuff
-let g:jedi#auto_vim_configuration=0
-let g:jedi#popup_select_first=0
-autocmd FileType python setlocal tabstop=4 shiftwidth=4
-autocmd FileType python setlocal completefunc=jedi#complete
-autocmd FileType python imap <TAB> <C-X><C-U>
-autocmd FileType python set makeprg=pylint\ --disable=C0301,C0111\ --reports=n\ --msg-template='{path}:{line}:\ [{msg_id}({symbol}),\ {obj}]\ {msg}'\ %
-autocmd FileType python set efm=%A%f:%l:\ [%t%.%#]\ %m,%Z%p^^,%-C%.%#,%-GNo%.%#
-
 " C++ completion
 let g:clang_complete_auto=1
 let g:clang_auto_select=1
-autocmd FileType cpp imap <TAB> <C-X><C-U>
-autocmd FileType c imap <TAB> <C-X><C-U>
+autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
+autocmd FileType c,cpp nmap <buffer> <F1> :Man<CR>
 
 " General completion stuff
 set completeopt=menuone,menu,longest
