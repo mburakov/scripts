@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo 600 > /sys/class/backlight/intel_backlight/brightness
+ethtool -s enp3s0 wol d
+iw dev wlo1 set power_save on
+tee /sys/class/pci_bus/*/device/*/power/control <<< auto > /dev/null
