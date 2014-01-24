@@ -1,6 +1,13 @@
 #!/bin/bash
 
+sysctl -w kernel.nmi_watchdog=0
+sysctl -w vm.dirty_writeback_centisecs=1500
+sysctl -w vm.laptop_mode=5
+
+echo 1 > /sys/module/snd_hda_intel/parameters/power_save
 echo 600 > /sys/class/backlight/intel_backlight/brightness
+
 ethtool -s enp3s0 wol d
 iw dev wlo1 set power_save on
+
 tee /sys/class/pci_bus/*/device/*/power/control <<< auto > /dev/null
