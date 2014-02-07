@@ -89,6 +89,9 @@ let g:clang_auto_select=1
 autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
 autocmd FileType c,cpp nmap <buffer> <F1> :Man<CR>
 
+" Perl completion
+autocmd FileType perl imap <buffer> <TAB> <C-X><C-O>
+
 " General completion stuff
 set completeopt=menuone,menu,longest
 
