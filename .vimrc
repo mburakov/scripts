@@ -67,16 +67,6 @@ nmap <C-Right> <C-w>l
 nmap [ :cp<CR>
 nmap ] :cn<CR>
 
-" tmux sends these for Ctrl+Arrow
-map <ESC>[D <C-Left>
-map! <ESC>[D <C-Left>
-map <ESC>[B <C-Down>
-map! <ESC>[B <C-Down>
-map <ESC>[A <C-Up>
-map! <ESC>[A <C-Up>
-map <ESC>[C <C-Right>
-map! <ESC>[C <C-Right>
-
 colorscheme desertEx
 
 " Airline
@@ -98,3 +88,24 @@ set completeopt=menuone,menu,longest
 filetype on
 filetype plugin on
 filetype indent on
+
+" Pyclewn
+nmap <F5> :C s<CR>
+nmap <S-F5> :C fin<CR>
+nmap <F6> :C n<CR>
+nmap <F9> :exe "C b " . expand("%:p") . ":" . line(".")<CR>
+nmap <C-F9> :C d<CR>
+
+" tmux compatibility for specific keys
+map <ESC>[1;5D <C-Left>
+map! <ESC>[1;5D <C-Left>
+map <ESC>[1;5B <C-Down>
+map! <ESC>[1;5B <C-Down>
+map <ESC>[1;5A <C-Up>
+map! <ESC>[1;5A <C-Up>
+map <ESC>[1;5C <C-Right>
+map! <ESC>[1;5C <C-Right>
+map <ESC>[15;2~ <S-F5>
+map! <ESC>[15;2~ <S-F5>
+map <ESC>[20;5~ <C-F9>
+map! <ESC>[20;5~ <C-F9>
