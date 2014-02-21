@@ -31,6 +31,32 @@ function! s:DiffWithSVNCheckedOut()
 endfunction
 com! DiffSVN call s:DiffWithSVNCheckedOut()
 
+" Git diff function
+function! s:DiffWithGitHead()
+  let filetype = &ft
+  diffthis
+  vnew | r !git show HEAD:./#
+  :1d
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffGit call s:DiffWithGitHead()
+
+" Route diff function
+function! s:DiffWithAnything()
+  call system("git status")
+  if (!v:shell_error)
+    call s:DiffWithGitHead()
+    return
+  endif
+  call system("svn status")
+  if (!v:shell_error)
+    call s:DiffWithSVNCheckedOut()
+    return
+  endif
+endfunction
+com! DiffAny call s:DiffWithAnything()
+
 " Man function
 function! s:OpenManPage()
   python import vim, subprocess, re
@@ -55,7 +81,7 @@ imap <S-TAB> <C-V><TAB>
 
 nmap <F2> :w<CR>
 nmap <F7> :make<CR>:cw<CR>
-nmap <F12> :DiffSVN<CR>
+nmap <F12> :DiffAny<CR>
 nmap <TAB> :bn<CR>
 nmap <S-TAB> :bp<CR>
 nmap <C-C> :bd!<CR>:diffoff<CR>
