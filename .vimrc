@@ -11,6 +11,7 @@ set hidden
 set incsearch
 set hlsearch
 set autochdir
+set nowrap
 
 set nomousehide
 set guioptions-=T
