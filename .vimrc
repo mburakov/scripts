@@ -11,6 +11,7 @@ set hidden
 set incsearch
 set hlsearch
 set autochdir
+set nowrap
 
 set nomousehide
 set guioptions-=T
@@ -30,6 +31,32 @@ function! s:DiffWithSVNCheckedOut()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSVN call s:DiffWithSVNCheckedOut()
+
+" Git diff function
+function! s:DiffWithGitHead()
+  let filetype = &ft
+  diffthis
+  vnew | r !git show HEAD:./#
+  :1d
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffGit call s:DiffWithGitHead()
+
+" Route diff function
+function! s:DiffWithAnything()
+  call system("git status")
+  if (!v:shell_error)
+    call s:DiffWithGitHead()
+    return
+  endif
+  call system("svn status")
+  if (!v:shell_error)
+    call s:DiffWithSVNCheckedOut()
+    return
+  endif
+endfunction
+com! DiffAny call s:DiffWithAnything()
 
 " Man function
 function! s:OpenManPage()
@@ -55,7 +82,7 @@ imap <S-TAB> <C-V><TAB>
 
 nmap <F2> :w<CR>
 nmap <F7> :make<CR>:cw<CR>
-nmap <F12> :DiffSVN<CR>
+nmap <F12> :DiffAny<CR>
 nmap <TAB> :bn<CR>
 nmap <S-TAB> :bp<CR>
 nmap <C-C> :bd!<CR>:diffoff<CR>
@@ -66,16 +93,6 @@ nmap <C-Up> <C-w>k
 nmap <C-Right> <C-w>l
 nmap [ :cp<CR>
 nmap ] :cn<CR>
-
-" tmux sends these for Ctrl+Arrow
-map <ESC>[D <C-Left>
-map! <ESC>[D <C-Left>
-map <ESC>[B <C-Down>
-map! <ESC>[B <C-Down>
-map <ESC>[A <C-Up>
-map! <ESC>[A <C-Up>
-map <ESC>[C <C-Right>
-map! <ESC>[C <C-Right>
 
 colorscheme desertEx
 
@@ -89,9 +106,33 @@ let g:clang_auto_select=1
 autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
 autocmd FileType c,cpp nmap <buffer> <F1> :Man<CR>
 
+" Perl completion
+autocmd FileType perl imap <buffer> <TAB> <C-X><C-O>
+
 " General completion stuff
 set completeopt=menuone,menu,longest
 
 filetype on
 filetype plugin on
 filetype indent on
+
+" Pyclewn
+nmap <F5> :C s<CR>
+nmap <S-F5> :C fin<CR>
+nmap <F6> :C n<CR>
+nmap <F9> :exe "C b " . expand("%:p") . ":" . line(".")<CR>
+nmap <C-F9> :C d<CR>
+
+" tmux compatibility for specific keys
+map <ESC>[1;5D <C-Left>
+map! <ESC>[1;5D <C-Left>
+map <ESC>[1;5B <C-Down>
+map! <ESC>[1;5B <C-Down>
+map <ESC>[1;5A <C-Up>
+map! <ESC>[1;5A <C-Up>
+map <ESC>[1;5C <C-Right>
+map! <ESC>[1;5C <C-Right>
+map <ESC>[15;2~ <S-F5>
+map! <ESC>[15;2~ <S-F5>
+map <ESC>[20;5~ <C-F9>
+map! <ESC>[20;5~ <C-F9>
