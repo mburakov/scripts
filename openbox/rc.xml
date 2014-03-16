@@ -262,7 +262,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>st -f 'liberation mono:pixelsize=16'</command>
+        <command>st -f 'liberation mono for powerline:pixelsize=16'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
