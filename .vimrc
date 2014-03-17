@@ -120,6 +120,7 @@ filetype indent on
 nmap <F5> :C s<CR>
 nmap <S-F5> :C fin<CR>
 nmap <F6> :C n<CR>
+nmap <F8> :C c<CR>
 nmap <F9> :exe "C b " . expand("%:p") . ":" . line(".")<CR>
 nmap <C-F9> :C d<CR>
 
@@ -132,7 +133,7 @@ map <ESC>[1;5A <C-Up>
 map! <ESC>[1;5A <C-Up>
 map <ESC>[1;5C <C-Right>
 map! <ESC>[1;5C <C-Right>
-map <ESC>[15;2~ <S-F5>
-map! <ESC>[15;2~ <S-F5>
+map <ESC>[31~ <S-F5>
+map! <ESC>[31~ <S-F5>
 map <ESC>[20;5~ <C-F9>
 map! <ESC>[20;5~ <C-F9>
