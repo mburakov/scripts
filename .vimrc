@@ -123,6 +123,8 @@ nmap <F6> :C n<CR>
 nmap <F8> :C c<CR>
 nmap <F9> :exe "C b " . expand("%:p") . ":" . line(".")<CR>
 nmap <C-F9> :C d<CR>
+nmap <C-PageUp> :C up<CR>
+nmap <C-PageDown> :C down<CR>
 
 " tmux compatibility for specific keys
 map <ESC>[1;5D <C-Left>
@@ -137,3 +139,7 @@ map <ESC>[31~ <S-F5>
 map! <ESC>[31~ <S-F5>
 map <ESC>[20;5~ <C-F9>
 map! <ESC>[20;5~ <C-F9>
+map <ESC>[5;5~ <C-PageUp>
+map! <ESC>[5;5~ <C-PageUp>
+map <ESC>[6;5~ <C-PageDown>
+map! <ESC>[6;5~ <C-PageDown>
