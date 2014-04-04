@@ -96,6 +96,10 @@ nmap ] :cn<CR>
 
 colorscheme desertEx
 
+" YouCompleteMe
+let g:ycm_confirm_extra_conf=0
+let g:ycm_add_preview_to_completeopt=0
+
 " Airline
 set laststatus=2
 let g:airline_powerline_fonts=1
