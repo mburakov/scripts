@@ -58,28 +58,19 @@ function! s:DiffWithAnything()
 endfunction
 com! DiffAny call s:DiffWithAnything()
 
-" Man function
-function! s:OpenManPage()
-  python import vim, subprocess, re
-  python cword = vim.eval('expand ("<cword>")')
-  python whatis = subprocess.Popen(['whatis', cword], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  python sect = whatis.wait() and [] or re.findall('\(([2,3,7])\)', whatis.stdout.read())
-  python sect and (vim.command('silent !man {} {}'.format(sect[0], cword)), vim.command('redraw!'))
-endfunction
-com! Man call s:OpenManPage()
-
 " Tweaks for console version
 set t_Co=256
+
+" Leader
+let mapleader = ' '
 
 syntax on
 
 imap [ []<LEFT>
 imap ( ()<LEFT>
 imap {<CR> {<CR>}<Esc>O
-
-imap <TAB> <C-X><C-N>
 imap <S-TAB> <C-V><TAB>
-
+nmap <F1> :silent !man -S 3,2,7,1 <cword><CR>:redraw!<CR>
 nmap <F2> :w<CR>
 nmap <F7> :make<CR>:cw<CR>
 nmap <F12> :DiffAny<CR>
@@ -97,21 +88,14 @@ nmap ] :cn<CR>
 colorscheme desertEx
 
 " YouCompleteMe
-let g:ycm_confirm_extra_conf=0
-let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_key_invoke_completion = '<TAB>'
+nmap <leader>g :YcmCompleter GoToDefinition<CR>
 
 " Airline
 set laststatus=2
-let g:airline_powerline_fonts=1
-
-" C++ completion
-let g:clang_complete_auto=1
-let g:clang_auto_select=1
-autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
-autocmd FileType c,cpp nmap <buffer> <F1> :Man<CR>
-
-" Perl completion
-autocmd FileType perl imap <buffer> <TAB> <C-X><C-O>
+let g:airline_powerline_fonts = 1
 
 " General completion stuff
 set completeopt=menuone,menu,longest
