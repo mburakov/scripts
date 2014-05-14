@@ -1,0 +1,4 @@
+Xft.hinting: true 
+Xft.hintstyle: hintslight
+Xft.antialias: rgba 
+Xft.rgba: rgb
