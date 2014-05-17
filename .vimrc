@@ -69,6 +69,7 @@ syntax on
 imap [ []<LEFT>
 imap ( ()<LEFT>
 imap {<CR> {<CR>}<Esc>O
+imap <TAB> <C-X><C-N>
 imap <S-TAB> <C-V><TAB>
 nmap <F1> :silent !man -S 3,2,7,1 <cword><CR>:redraw!<CR>
 nmap <F2> :w<CR>
@@ -87,11 +88,10 @@ nmap ] :cn<CR>
 
 colorscheme desertEx
 
-" YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_key_invoke_completion = '<TAB>'
-nmap <leader>g :YcmCompleter GoToDefinition<CR>
+" clang-complete
+let g:clang_complete_auto = 1
+let g:clang_auto_select = 1
+autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
 
 " Airline
 set laststatus=2
