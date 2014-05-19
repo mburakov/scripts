@@ -85,6 +85,9 @@ nmap <C-Up> <C-w>k
 nmap <C-Right> <C-w>l
 nmap [ :cp<CR>
 nmap ] :cn<CR>
+nmap <leader><leader> :noh<CR>
+vmap // :s/^/\/\//<CR>:noh<CR>
+vmap # :s/^/#/<CR>:noh<CR>
 
 colorscheme desertEx
 
