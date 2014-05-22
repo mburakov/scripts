@@ -12,6 +12,7 @@ set incsearch
 set hlsearch
 set autochdir
 set nowrap
+set nocompatible
 
 set nomousehide
 set guioptions-=T
@@ -89,7 +90,15 @@ nmap <leader><leader> :noh<CR>
 vmap // :s/^/\/\//<CR>:noh<CR>
 vmap # :s/^/#/<CR>:noh<CR>
 
-colorscheme desertEx
+" Neobundle
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-scripts/desertEx'
+NeoBundle 'Rip-Rip/clang_complete'
+call neobundle#end()
+NeoBundleCheck
 
 " clang-complete
 let g:clang_complete_auto = 1
@@ -134,3 +143,6 @@ map <ESC>[5;5~ <C-PageUp>
 map! <ESC>[5;5~ <C-PageUp>
 map <ESC>[6;5~ <C-PageDown>
 map! <ESC>[6;5~ <C-PageDown>
+
+" Set up colorscheme
+colorscheme desertEx
