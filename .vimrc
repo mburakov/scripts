@@ -94,9 +94,12 @@ vmap # :s/^/#/<CR>:noh<CR>
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'vim-scripts/desertEx'
 NeoBundle 'Rip-Rip/clang_complete'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'gilligan/vim-lldb'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'vim-scripts/DoxygenToolkit.vim'
+NeoBundle 'vim-scripts/desertEx'
 call neobundle#end()
 NeoBundleCheck
 
