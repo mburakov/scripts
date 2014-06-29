@@ -1,0 +1,6 @@
+until [ -d /sys/class/bluetooth/hci0 ]
+do
+  rmmod ath3k
+  sleep 5s
+  modprobe ath3k
+done
