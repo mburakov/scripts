@@ -5,6 +5,7 @@
 (package-initialize)
 
 (global-linum-mode 1)
+(setq visible-bell 1)
 (load-theme 'solarized-dark t)
 
 (add-to-list 'load-path "~/.emacs.d")

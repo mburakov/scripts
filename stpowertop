@@ -1,3 +1,3 @@
 #!/bin/sh
 
-nohup sudo st -e powertop >/dev/null 2>&1 &
+nohup st -f 'liberation mono for powerline' -e sudo powertop >/dev/null 2>&1 &
