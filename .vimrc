@@ -17,7 +17,7 @@ set nocompatible
 set nomousehide
 set guioptions-=T
 set guioptions-=m
-set guifont=Liberation\ Mono\ 12
+set guifont=Liberation\ Mono\ for\ Powerline\ 24
 
 " Use X clipboard as default register
 set clipboard=unnamedplus
@@ -61,6 +61,7 @@ com! DiffAny call s:DiffWithAnything()
 
 " Tweaks for console version
 set t_Co=256
+let g:solarized_termcolors=16
 
 " Leader
 let mapleader = ' '
@@ -95,11 +96,11 @@ set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Rip-Rip/clang_complete'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'gilligan/vim-lldb'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-NeoBundle 'vim-scripts/desertEx'
 call neobundle#end()
 NeoBundleCheck
 
@@ -148,4 +149,5 @@ map <ESC>[6;5~ <C-PageDown>
 map! <ESC>[6;5~ <C-PageDown>
 
 " Set up colorscheme
-colorscheme desertEx
+set background=dark
+colorscheme solarized
