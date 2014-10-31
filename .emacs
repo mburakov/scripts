@@ -1,12 +1,16 @@
 (require 'package)
-(add-to-list 'package-archives 
+(add-to-list 'package-archives
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (global-linum-mode 1)
 (setq visible-bell 1)
+(setq-default indent-tabs-mode nil)
 (load-theme 'solarized-dark t)
+
+(setq c-default-style "bsd"
+      c-basic-offset 2)
 
 (add-to-list 'load-path "~/.emacs.d")
 (require 'auto-complete-clang-async)

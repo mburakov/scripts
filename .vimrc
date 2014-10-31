@@ -72,7 +72,7 @@ imap [ []<LEFT>
 imap ( ()<LEFT>
 imap {<CR> {<CR>}<Esc>O
 imap <TAB> <C-X><C-N>
-imap <S-TAB> <C-V><TAB>
+imap <ESC>[Z <C-V><TAB>
 nmap <F1> :silent !man -S 3,2,7,1 <cword><CR>:redraw!<CR>
 nmap <F2> :w<CR>
 nmap <F7> :make<CR>:cw<CR>
@@ -107,7 +107,7 @@ NeoBundleCheck
 " clang-complete
 let g:clang_complete_auto = 1
 let g:clang_auto_select = 1
-autocmd FileType c,cpp imap <buffer> <TAB> <C-X><C-U>
+autocmd FileType c,cc,cpp imap <buffer> <TAB> <C-X><C-U>
 
 " Airline
 set laststatus=2
