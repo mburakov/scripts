@@ -108,6 +108,7 @@ NeoBundleCheck
 let g:clang_complete_auto = 1
 let g:clang_auto_select = 1
 autocmd FileType c,cc,cpp imap <buffer> <TAB> <C-X><C-U>
+autocmd FileType c,cc,cpp set tags=~/.vim/tags
 
 " Airline
 set laststatus=2
