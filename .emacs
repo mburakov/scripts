@@ -12,7 +12,7 @@
 (setq c-default-style "bsd"
       c-basic-offset 2)
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'auto-complete-clang-async)
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
