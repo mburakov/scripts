@@ -99,7 +99,6 @@ NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'edkolev/tmuxline.vim'
-NeoBundle 'gilligan/vim-lldb'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 call neobundle#end()
