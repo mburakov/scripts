@@ -24,7 +24,7 @@
   (google-c-style-setup))
 
 (add-hook 'c-mode-hook 'my-c-init)
-(add-hook 'c++-mode-hool 'my-c-init)
+(add-hook 'c++-mode-hook 'my-c-init)
 (global-auto-complete-mode t)
 
 (custom-set-variables
