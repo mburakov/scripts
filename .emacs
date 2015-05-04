@@ -6,26 +6,22 @@
 (global-linum-mode 1)
 (setq visible-bell 1)
 (setq-default indent-tabs-mode nil)
+(setq-default truncate-lines 1)
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'auto-complete-clang-async)
-(defun ac-cc-mode-setup ()
-  (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-  (setq ac-sources '(ac-source-clang-async))
-  (ac-clang-launch-completion-process))
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
-(require 'google-c-style)
 (defun google-c-style-setup ()
   (google-set-c-style)
   (google-make-newline-indent))
 
 (defun my-c-init ()
-  (ac-cc-mode-setup)
   (google-c-style-setup))
 
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
-(global-auto-complete-mode t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
