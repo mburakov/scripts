@@ -11,8 +11,11 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
-(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(defun my-irony-init ()
+  (company-irony-setup-begin-commands)
+  (irony-cdb-autosetup-compile-options)
+  (setq-local irony--working-directory default-directory))
 
 (defun google-c-style-setup ()
   (google-set-c-style)
@@ -26,6 +29,7 @@
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'irony-mode-hook 'my-irony-init)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
