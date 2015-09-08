@@ -14,11 +14,6 @@ set autochdir
 set nowrap
 set nocompatible
 
-set nomousehide
-set guioptions-=T
-set guioptions-=m
-set guifont=Liberation\ Mono\ for\ Powerline\ 24
-
 " Use X clipboard as default register
 set clipboard=unnamedplus
 
@@ -104,11 +99,15 @@ NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 call neobundle#end()
 NeoBundleCheck
 
-" clang-complete
+" Clang-complete
 let g:clang_complete_auto = 1
 let g:clang_auto_select = 1
 autocmd FileType c,cc,cpp imap <buffer> <TAB> <C-X><C-U>
 autocmd FileType c,cc,cpp set tags=~/.vim/tags
+
+" PlantUML
+autocmd BufRead,BufNewFile *.uml set filetype=uml
+autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 
 " Airline
 set laststatus=2
