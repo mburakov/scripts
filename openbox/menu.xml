@@ -42,7 +42,7 @@
   </item>
   <item label="st">
     <action name="Execute">
-      <command>st -f 'liberation mono for powerline:pixelsize=16'</command>
+      <command>st -f 'anonymous pro:pixelsize=16'</command>
     </action>
   </item>
   <separator label="System" />

@@ -262,7 +262,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>st -f 'liberation mono for powerline:pixelsize=16'</command>
+        <command>st -f 'anonymous pro:pixelsize=16'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
@@ -299,25 +299,25 @@
     <!-- Set this to TRUE to move the mouse pointer across the desktop when
        switching due to hitting the edge of the screen -->
     <context name="Frame">
-      <mousebind button="A-Left" action="Press">
+      <mousebind button="W-Left" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
       </mousebind>
-      <mousebind button="A-Left" action="Click">
+      <mousebind button="W-Left" action="Click">
         <action name="Unshade"/>
       </mousebind>
-      <mousebind button="A-Left" action="Drag">
+      <mousebind button="W-Left" action="Drag">
         <action name="Move"/>
       </mousebind>
-      <mousebind button="A-Right" action="Press">
+      <mousebind button="W-Right" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
         <action name="Unshade"/>
       </mousebind>
-      <mousebind button="A-Right" action="Drag">
+      <mousebind button="W-Right" action="Drag">
         <action name="Resize"/>
       </mousebind>
-      <mousebind button="A-Middle" action="Press">
+      <mousebind button="W-Middle" action="Press">
         <action name="Lower"/>
         <action name="FocusToBottom"/>
         <action name="Unfocus"/>
