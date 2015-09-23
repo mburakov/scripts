@@ -3,7 +3,6 @@
   '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
-(tool-bar-mode 0)
 (global-linum-mode 1)
 (setq visible-bell 1)
 (setq-default indent-tabs-mode nil)
@@ -38,12 +37,13 @@
  ;; If there is more than one, they won't work right.
  '(delete-trailing-lines t)
  '(frame-background-mode (quote dark))
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(tool-bar-mode nil))
+
+(load-theme 'solarized t)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Liberation Mono for Powerline" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
-
-(load-theme 'solarized t)
+ '(default ((t (:family "Ttyp0" :foundry "UW" :slant normal :weight normal :height 165 :width normal)))))

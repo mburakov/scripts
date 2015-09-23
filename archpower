@@ -1,11 +1,20 @@
 #!/bin/bash
 
+for iface in $(ls /sys/class/net)
+do
+  ethtool -s "$iface" wol d
+done
+
 sysctl -w kernel.nmi_watchdog=0
 sysctl -w vm.dirty_writeback_centisecs=1500
 sysctl -w vm.laptop_mode=5
 
 echo 1 > /sys/module/snd_hda_intel/parameters/power_save
-echo 600 > /sys/class/backlight/intel_backlight/brightness
+tee /sys/class/backlight/*/brightness <<< 100 > /dev/null
 
 tee /sys/class/pci_bus/*/device/*/power/control <<< auto > /dev/null
 tee /sys/class/scsi_host/*/link_power_management_policy <<< min_power > /devnull
+
+tee /sys/bus/usb/devices/*/power/control <<< auto > /dev/null
+
+rmmod btusb

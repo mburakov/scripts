@@ -262,7 +262,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>st -f 'anonymous pro for powerline:pixelsize=16'</command>
+        <command>st -f 'ttyp0:pixelsize=21'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
@@ -622,7 +622,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>
