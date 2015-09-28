@@ -23,7 +23,11 @@
 (defun my-c-init ()
   (google-c-style-setup)
   (irony-mode)
-  (setq-local truncate-lines 1))
+  (setq-local truncate-lines 1)
+  (setq compilation-read-command nil)
+  (setq compile-command "make -j8")
+  (local-set-key (kbd "<f7>") 'compile)
+  (local-set-key (kbd "<f12>") 'vc-diff))
 
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
