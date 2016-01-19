@@ -1,16 +1,16 @@
-"set autochdir
-"set autoindent
-"set bs=2
-"set expandtab
-"set hlsearch
-"set incsearch
-"set nobackup
+set autochdir
+set autoindent
+set bs=2
+set expandtab
+set hlsearch
+set incsearch
+set nobackup
 set nocompatible
-"set noswapfile
-"set number
-"set shiftwidth=2
-"set smartindent
-"set tabstop=2
+set noswapfile
+set number
+set shiftwidth=2
+set smartindent
+set tabstop=2
 
 "set t_Co=256
 
