@@ -40,9 +40,9 @@
       </startupnotify>
     </action>
   </item>
-  <item label="st">
+  <item label="sakura">
     <action name="Execute">
-      <command>st -f 'ttyp0:pixelsize=21'</command>
+      <command>sakura</command>
     </action>
   </item>
   <separator label="System" />

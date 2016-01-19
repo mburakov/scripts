@@ -262,7 +262,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>st -f 'ttyp0:pixelsize=21'</command>
+        <command>sakura</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
