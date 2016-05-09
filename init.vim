@@ -12,11 +12,42 @@ set shiftwidth=2
 set smartindent
 set tabstop=2
 
-"set t_Co=256
+" Svn diff function
+function! s:DiffWithSVNCheckedOut()
+  let filetype = &ft
+  diffthis
+  vnew | r !svn cat #
+  :1d
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSVN call s:DiffWithSVNCheckedOut()
 
-"filetype on
-"filetype plugin indent on
-"filetype indent on
+" Git diff function
+function! s:DiffWithGitHead()
+  let filetype = &ft
+  diffthis
+  vnew | r !git show HEAD:./#
+  :1d
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffGit call s:DiffWithGitHead()
+
+" Route diff function
+function! s:DiffWithAnything()
+  call system("git status")
+  if (!v:shell_error)
+    call s:DiffWithGitHead()
+    return
+  endif
+  call system("svn status")
+  if (!v:shell_error)
+    call s:DiffWithSVNCheckedOut()
+    return
+  endif
+endfunction
+com! DiffAny call s:DiffWithAnything()
 
 " Leader
 let mapleader = ' '
@@ -47,6 +78,7 @@ vmap # :s/^/#/<CR>:noh<CR>
 call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'altercation/vim-colors-solarized'
+Plug 'Rip-Rip/clang_complete'
 call plug#end()
 
 " Solarized colorscheme
