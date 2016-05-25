@@ -2,6 +2,7 @@ set autochdir
 set autoindent
 set bs=2
 set expandtab
+set hidden
 set hlsearch
 set incsearch
 set nobackup
@@ -56,15 +57,13 @@ imap [ []<LEFT>
 imap ( ()<LEFT>
 imap {<CR> {<CR>}<Esc>O
 imap <TAB> <C-X><C-N>
-imap <ESC>[Z <C-V><TAB>
-nmap <F1> :silent !man -S 3,2,7,1 <cword><CR>:redraw!<CR>
+nmap <F1> 3K
 nmap <F2> :w<CR>
 nmap <F7> :make<CR>:cw<CR>
 nmap <F12> :DiffAny<CR>
 nmap <TAB> :bn<CR>
 nmap <S-TAB> :bp<CR>
 nmap <C-C> :bd!<CR>:diffoff<CR>
-nmap <C-S> :!srcsync<CR>
 nmap <C-Left> <C-w>h
 nmap <C-Down> <C-w>j
 nmap <C-Up> <C-w>k
@@ -78,7 +77,8 @@ vmap # :s/^/#/<CR>:noh<CR>
 call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'altercation/vim-colors-solarized'
-Plug 'Rip-Rip/clang_complete'
+Plug 'valloric/YouCompleteMe'
+Plug 'critiqjo/lldb.nvim'
 call plug#end()
 
 " Solarized colorscheme
@@ -89,8 +89,8 @@ colorscheme solarized
 " Powerline config
 let g:airline_powerline_fonts=1
 
-" General completion stuff
-set completeopt=menuone,menu,longest
+" YCM completion config
+let g:ycm_confirm_extra_conf=0
 
 " PlantUML
 autocmd BufRead,BufNewFile *.uml set filetype=uml
