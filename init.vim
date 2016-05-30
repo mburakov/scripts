@@ -98,3 +98,6 @@ autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 
 " Use X clipboard as default register
 set clipboard+=unnamedplus
+
+" Proper filename completion
+set wildmode=list:longest
