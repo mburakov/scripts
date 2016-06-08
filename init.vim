@@ -76,6 +76,7 @@ vmap # :s/^/#/<CR>:noh<CR>
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'valloric/YouCompleteMe'
 Plug 'critiqjo/lldb.nvim'
@@ -91,6 +92,7 @@ let g:airline_powerline_fonts=1
 
 " YCM completion config
 let g:ycm_confirm_extra_conf=0
+nmap <C-]> :YcmCompleter GoTo<CR>
 
 " PlantUML
 autocmd BufRead,BufNewFile *.uml set filetype=uml
