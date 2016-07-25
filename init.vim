@@ -99,7 +99,7 @@ autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 
 " Use X clipboard as default register
-set clipboard+=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 " Proper filename completion
 set wildmode=list:longest
