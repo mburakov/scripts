@@ -80,6 +80,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'valloric/YouCompleteMe'
 Plug 'critiqjo/lldb.nvim'
+Plug 'vim-scripts/DoxygenToolkit.vim'
 call plug#end()
 
 " Solarized colorscheme
@@ -91,6 +92,7 @@ colorscheme solarized
 let g:airline_powerline_fonts=1
 
 " YCM completion config
+set completeopt-=preview
 let g:ycm_confirm_extra_conf=0
 nmap <C-]> :YcmCompleter GoTo<CR>
 
