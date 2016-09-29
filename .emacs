@@ -1,48 +1,43 @@
 (require 'package)
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
+(require 'rtags)
+(require 'company)
+(require 'evil)
+(require 'google-c-style)
 
-(evil-mode)
+(evil-mode 1)
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(push 'company-rtags company-backends)
+(global-company-mode)
 (global-linum-mode 1)
 (setq visible-bell 1)
 (setq-default indent-tabs-mode nil)
-(setq enable-local-variables :all)
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
 
-(add-hook 'after-init-hook 'global-company-mode)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-clang))
-
-;;(defun my-irony-init ()
-;;  (company-irony-setup-begin-commands)
-;;  (irony-cdb-autosetup-compile-options)
-;;  (setq-local irony--working-directory default-directory))
-
-(defun google-c-style-setup ()
-  (google-set-c-style)
-  (google-make-newline-indent))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun my-c-init ()
-  (google-c-style-setup)
-;;(irony-mode)
-  (setq-local truncate-lines 1)
-  (setq compilation-read-command nil)
-  (setq compile-command "make -j8")
-  (local-set-key (kbd "<f2>") 'save)
-  (local-set-key (kbd "<f7>") 'compile)
-  (local-set-key (kbd "<f12>") 'vc-diff)
-  (local-set-key (kbd "<tab>") 'company-complete))
-
-(defun my-gdb-init ()
-  (global-set-key (kbd "<f9>") 'gud-break)
-  (global-set-key (kbd "<f10>") 'gud-next)
-  (global-set-key (kbd "<f11>") 'gud-step))
+  (define-key evil-normal-state-map (kbd "C-]") 'rtags-find-symbol-at-point)
+  (define-key evil-normal-state-map (kbd "<f12>") 'vc-ediff)
+  (google-set-c-style)
+  (google-make-newline-indent)
+  (electric-pair-local-mode)
+  (let ((d (make-display-table)))
+    (aset d 9 (vector ?· ?· ?· ?·))
+    (setq buffer-display-table d)))
 
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;;(add-hook 'irony-mode-hook 'my-irony-init)
-(add-hook 'gud-mode-hook 'my-gdb-init)
+
+(defun sudo-save ()
+  (interactive)
+  (if (not buffer-file-name)
+      (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
+    (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -50,14 +45,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(delete-trailing-lines t)
- '(frame-background-mode (quote dark))
+ '(evil-shift-width 2)
+ '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(tool-bar-mode nil))
-
-(load-theme 'solarized t)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ttyp0" :foundry "UW" :slant normal :weight normal :height 165 :width normal)))))
+ )
