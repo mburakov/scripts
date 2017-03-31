@@ -5,10 +5,12 @@
 (require 'company)
 (require 'evil)
 (require 'google-c-style)
-(require 'color-theme)
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
+(customize-set-variable 'frame-background-mode 'dark)
+(load-theme 'solarized t)
 
 (evil-mode)
-(color-theme-solarized-dark)
 (setq rtags-autostart-diagnostics t)
 (rtags-diagnostics)
 (setq rtags-completions-enabled t)
@@ -24,6 +26,10 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setenv "CINEMO_BUILDMACHINE_VALID" "yes")
+(setenv "MAKE_OPTS" "-j16")
+(setenv "APP_ALLOW_MISSING_DEPS" "true")
 
 (defun my-c-init ()
   (define-key evil-normal-state-map (kbd "C-]") 'rtags-find-symbol-at-point)
@@ -71,16 +77,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("4e753673a37c71b07e3026be75dc6af3efbac5ce335f3707b7d6a110ecb636a3" default)))
  '(delete-trailing-lines t)
  '(evil-shift-width 2)
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages
-   (quote
-    (pkg-info google-c-style evil company color-theme-solarized)))
+ '(package-selected-packages (quote (google-c-style evil company)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
