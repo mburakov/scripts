@@ -82,7 +82,8 @@
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages (quote (google-c-style evil company)))
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(menu-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
