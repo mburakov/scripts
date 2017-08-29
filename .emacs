@@ -4,7 +4,6 @@
 (require 'rtags)
 (require 'company)
 (require 'evil)
-(require 'google-c-style)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
 (customize-set-variable 'frame-background-mode 'dark)
@@ -27,34 +26,19 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(setenv "CINEMO_BUILDMACHINE_VALID" "yes")
-(setenv "MAKE_OPTS" "-j16")
-(setenv "APP_ALLOW_MISSING_DEPS" "true")
-
 (defun my-c-init ()
   (define-key evil-normal-state-map (kbd "C-]") 'rtags-find-symbol-at-point)
   (define-key evil-normal-state-map (kbd "<f12>") 'vc-ediff)
-  (google-set-c-style)
-  (google-make-newline-indent)
+  (setq-local c-basic-offset 2)
   (electric-pair-local-mode))
 
-(defun legacy ()
+(defun clang-format ()
   (interactive)
-  (if (equal indent-tabs-mode nil)
-      (progn
-        (setq indent-tabs-mode t)
-        (setq default-tab-width 4)
-        (setq delete-trailing-lines nil)
-        (remove-hook 'before-save-hook 'delete-trailing-whitespace)
-        (whitespace-mode nil)
-        (message "Legacy code mode on"))
-    (progn
-      (setq indent-tabs-mode nil)
-      (setq default-tab-width 8)
-      (setq delete-trailing-lines t)
-      (add-hook 'before-save-hook 'delete-trailing-whitespace)
-      (whitespace-mode 0)
-      (message "Legacy code mode off"))))
+  (let ((prev-point (point)))
+    (shell-command-on-region
+     (point-min) (point-max) "clang-format" t)
+    (delete-region (point) (point-max))
+    (goto-char prev-point)))
 
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
@@ -98,11 +82,12 @@
  ;; If there is more than one, they won't work right.
  '(delete-trailing-lines t)
  '(evil-shift-width 2)
+ '(frame-background-mode (quote dark))
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages (quote (google-c-style evil company)))
- '(tool-bar-mode nil)
- '(menu-bar-mode nil))
+ '(menu-bar-mode nil)
+ '(package-selected-packages (quote (evil company)))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
