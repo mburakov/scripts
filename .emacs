@@ -10,20 +10,12 @@
 (load-theme 'solarized t)
 
 (evil-mode)
-(setq rtags-autostart-diagnostics t)
-(rtags-diagnostics)
-(setq rtags-completions-enabled t)
 (push 'company-rtags company-backends)
 (global-company-mode)
 (global-linum-mode 1)
-(setq visible-bell 1)
-(setq-default indent-tabs-mode nil)
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq backup-by-copying t)
 (setq ediff-split-window-function 'split-window-horizontally)
 (set-default-font "Monospace-11:weight=bold")
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun my-c-init ()
@@ -75,22 +67,36 @@
    "plantuml -p | feh -")
   (deactivate-mark))
 
+(defun pdflatex ()
+  (interactive)
+  (shell-command
+   (concat "pdflatex " (buffer-file-name))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(backup-by-copying t)
+ '(backup-directory-alist (quote (("." . "~/.saves"))))
+ '(compilation-scroll-output t)
  '(delete-trailing-lines t)
  '(evil-shift-width 2)
  '(frame-background-mode (quote dark))
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(menu-bar-mode nil)
  '(package-selected-packages (quote (evil company)))
- '(tool-bar-mode nil))
+ '(rtags-autostart-diagnostics t)
+ '(rtags-completions-enabled t)
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil)
+ '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'erase-buffer 'disabled nil)
