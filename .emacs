@@ -32,6 +32,11 @@
     (delete-region (point) (point-max))
     (goto-char prev-point)))
 
+(defun hexify ()
+  (interactive)
+  (shell-command-on-region
+   (point) (mark) "od -An -tx1 -" t))
+
 (add-hook 'c-mode-hook 'my-c-init)
 (add-hook 'c++-mode-hook 'my-c-init)
 
