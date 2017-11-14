@@ -27,16 +27,16 @@
 
 (defun ebear-handle-file (line dir file)
   (concat "\t{\n"
-          (format-args (ebear-split-compile-command line))
+          (ebear-format-args (ebear-split-compile-command line))
           "\t\t\"directory\": \"" dir "\",\n"
           "\t\t\"file\": \"" dir "/" file "\"\n"
-          "\t},"))
+          "\t},\n"))
 
 (defun ebear-handle-commands (cmds dir)
-  (concat "[\n"
-          (dolist (line cmds)
-            (let ((file (is-compile-command line)))
-              (if file (insert (handle-file line dir file)))))
-          "]\n"))
+  (let (result)
+    (dolist (line cmds result)
+      (let ((file (ebear-is-compile-command line)))
+        (if file (setq result (concat result
+                                      (ebear-handle-file line dir file))))))))
 
 (provide 'ebear)
