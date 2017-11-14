@@ -5,9 +5,12 @@
 (require 'company)
 (require 'evil)
 
+(add-to-list 'load-path "~/projects/scripts")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
 (customize-set-variable 'frame-background-mode 'dark)
 (load-theme 'solarized t)
+
+(require 'ebear)
 
 (evil-mode)
 (push 'company-rtags company-backends)
