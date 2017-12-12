@@ -24,6 +24,8 @@
 (defun my-c-init ()
   (define-key evil-normal-state-map (kbd "C-]") 'rtags-find-symbol-at-point)
   (define-key evil-normal-state-map (kbd "<f12>") 'vc-ediff)
+  (define-key evil-insert-state-map (kbd "<backtab>")
+    '(lambda () (interactive) (insert-char ?\t)))
   (setq-local c-basic-offset 2)
   (electric-pair-local-mode))
 
