@@ -10,8 +10,6 @@
 (customize-set-variable 'frame-background-mode 'dark)
 (load-theme 'solarized t)
 
-(require 'ebear)
-
 (evil-mode)
 (push 'company-rtags company-backends)
 (global-company-mode)
