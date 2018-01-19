@@ -1,5 +1,9 @@
 (package-initialize)
 
+(setenv "EDITOR" "emacsclient" t)
+(setenv "PATH" (concat (getenv "PATH") ":"
+                       (getenv "HOME") "/projects/scripts"))
+
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'custom-theme-load-path "~/projects/emacs/emacs-color-theme-solarized")
 (add-to-list 'default-frame-alist '(font . "Hack 11"))
@@ -24,6 +28,7 @@
 (global-linum-mode 1)
 (load-theme 'solarized t)
 (push 'company-lsp company-backends)
+(server-start)
 
 (defun my-c-init ()
   (local-set-key (kbd "<backtab>")
