@@ -1,6 +1,7 @@
 (package-initialize)
 
-(setenv "EDITOR" "emacsclient" t)
+(setenv "EDITOR" "emacsclient")
+(setenv "PAGER" "cat")
 (setenv "PATH" (concat (getenv "PATH") ":"
                        (getenv "HOME") "/projects/scripts"))
 
