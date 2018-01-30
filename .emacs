@@ -1,3 +1,8 @@
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
 (package-initialize)
 
 (setenv "EDITOR" "emacsclient")
@@ -6,13 +11,7 @@
                        (getenv "HOME") "/projects/scripts"))
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(add-to-list 'custom-theme-load-path "~/projects/emacs/emacs-color-theme-solarized")
 (add-to-list 'default-frame-alist '(font . "Hack 11"))
-(add-to-list 'load-path "~/projects/emacs/company-lsp")
-(add-to-list 'load-path "~/projects/emacs/dash.el")
-(add-to-list 'load-path "~/projects/emacs/emacs-cquery")
-(add-to-list 'load-path "~/projects/emacs/lsp-mode")
-(add-to-list 'load-path "~/projects/emacs/s.el")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'c++-mode-hook 'my-c-init)
@@ -102,7 +101,9 @@
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(menu-bar-mode nil)
- '(package-selected-packages (quote (company)))
+ '(package-selected-packages
+   (quote
+    (color-theme-solarized company-lsp cquery evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(visible-bell t))
