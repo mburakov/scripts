@@ -20,6 +20,8 @@
 (setq cquery-executable "/usr/bin/cquery")
 (setq ediff-split-window-function 'split-window-horizontally)
 
+(with-eval-after-load 'lsp-mode
+  (require 'lsp-flycheck))
 (require 'cquery)
 (require 'company-lsp)
 
@@ -35,7 +37,8 @@
                  '(lambda () (interactive) (insert-char ?\t)))
   (setq-local c-basic-offset 4)
   (electric-pair-local-mode)
-  (lsp-cquery-enable))
+  (lsp-cquery-enable)
+  (flycheck-mode))
 
 (defun clang-format ()
   (interactive)
