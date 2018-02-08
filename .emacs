@@ -24,6 +24,7 @@
   (require 'lsp-flycheck))
 (require 'cquery)
 (require 'company-lsp)
+(require 'edit-server)
 
 (customize-set-variable 'frame-background-mode 'dark)
 (global-company-mode)
@@ -31,6 +32,7 @@
 (load-theme 'solarized t)
 (push 'company-lsp company-backends)
 (server-start)
+(edit-server-start)
 
 (defun my-c-init ()
   (local-set-key (kbd "<backtab>")
@@ -99,6 +101,10 @@
  '(backup-directory-alist (quote (("." . "~/.saves"))))
  '(compilation-scroll-output t)
  '(delete-trailing-lines t)
+ '(edit-server-new-frame nil)
+ '(fci-dash-pattern 0.25)
+ '(fci-rule-column 80)
+ '(fci-rule-use-dashes t)
  '(frame-background-mode (quote dark))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -106,7 +112,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (color-theme-solarized company-lsp cquery evil)))
+    (fill-column-indicator edit-server color-theme-solarized company-lsp cquery evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(visible-bell t))
