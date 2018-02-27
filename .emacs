@@ -102,6 +102,7 @@
  '(compilation-scroll-output t)
  '(delete-trailing-lines t)
  '(edit-server-new-frame nil)
+ '(enable-local-eval t)
  '(fci-dash-pattern 0.1)
  '(fci-rule-color "#586e75")
  '(fci-rule-column 80)
