@@ -35,13 +35,7 @@ let mapleader = ' '
 
 colorscheme NeoSolarized
 
-function! MakeHeader()
-  let @q='0/(hv? ly02Oki/79a*o po77a*a/0klr :nohjjj'
-  :normal @q
-endfunction
-command MakeHeader :call MakeHeader()
-
-function! CloseSplit()
+function CloseSplit()
   let buf = bufnr('%')
   :bn
   exe 'bd!' . buf
