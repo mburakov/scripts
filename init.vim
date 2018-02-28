@@ -24,9 +24,11 @@ call plug#end()
 
 let g:LanguageClient_serverCommands = {
     \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+    \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
     \ }
 
 autocmd FileType cpp setlocal completefunc=LanguageClient#complete
+autocmd FileType c setlocal completefunc=LanguageClient#complete
 
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = '/home/mburakov/.config/nvim/settings.json'
@@ -41,6 +43,11 @@ function CloseSplit()
   exe 'bd!' . buf
 endfunction
 command CloseSplit :call CloseSplit()
+
+function ClangFormat()
+  :%!clang-format
+endfunction
+command ClangFormat :call ClangFormat()
 
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
