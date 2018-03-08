@@ -26,10 +26,6 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
     \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
     \ }
-
-autocmd FileType cpp setlocal completefunc=LanguageClient#complete
-autocmd FileType c setlocal completefunc=LanguageClient#complete
-
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = '/home/mburakov/.config/nvim/settings.json'
 let g:airline_powerline_fonts = 1
@@ -65,3 +61,8 @@ nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>
 tmap <ESC> <C-\><C-N>
+
+autocmd BufRead,BufNewFile *.uml set filetype=uml
+autocmd FileType c setlocal completefunc=LanguageClient#complete
+autocmd FileType cpp setlocal completefunc=LanguageClient#complete
+autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
