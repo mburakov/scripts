@@ -33,10 +33,11 @@ let g:airline_powerline_fonts = 1
 let mapleader = ' '
 
 colorscheme NeoSolarized
+hi comment gui=italic
 
 function CloseSplit()
   let buf = bufnr('%')
-  :bn
+  :bp
   exe 'bd!' . buf
 endfunction
 command CloseSplit :call CloseSplit()
