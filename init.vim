@@ -47,6 +47,8 @@ function ClangFormat()
 endfunction
 command ClangFormat :call ClangFormat()
 
+command ClearSigns :sign unplace *
+
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
 imap <TAB> <C-X><C-U>
