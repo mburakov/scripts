@@ -18,7 +18,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug 'iCyMind/NeoSolarized'
-Plug 'sakhnik/nvim-gdb'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
