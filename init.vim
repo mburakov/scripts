@@ -70,6 +70,8 @@ autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType c setlocal completefunc=LanguageClient#complete
 autocmd FileType cpp setlocal completefunc=LanguageClient#complete
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
+autocmd User LanguageClientStarted setlocal signcolumn=yes
+autocmd User LanguageClientStopped setlocal signcolumn=auto
 
 if exists('g:GtkGuiLoaded')
   call rpcnotify(1, 'Gui', 'Font', 'Iosevka medium 12')
