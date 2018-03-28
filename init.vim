@@ -5,6 +5,8 @@ set colorcolumn=+1
 set completeopt-=preview
 set expandtab
 set hidden
+set list
+set listchars=tab:»\ ,trail:·
 set number
 set shiftwidth=2
 set tabstop=2
