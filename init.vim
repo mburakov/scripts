@@ -44,7 +44,9 @@ endfunction
 command CloseSplit :call CloseSplit()
 
 function ClangFormat()
+  let where = line('.')
   :%!clang-format
+  exe where
 endfunction
 command ClangFormat :call ClangFormat()
 
