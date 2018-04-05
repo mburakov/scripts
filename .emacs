@@ -36,6 +36,22 @@
 (push 'company-lsp company-backends)
 (server-start)
 
+(define-key evil-insert-state-map (kbd "<backtab>")
+  '(lambda () (interactive) (insert-char ?\t)))
+(define-key evil-normal-state-map (kbd "<backtab>") 'previous-buffer)
+(define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
+(define-key evil-normal-state-map (kbd "SPC <backspace>") 'kill-any-buffer)
+(define-key evil-normal-state-map (kbd "SPC <down>") 'windmove-down)
+(define-key evil-normal-state-map (kbd "SPC <left>") 'windmove-left)
+(define-key evil-normal-state-map (kbd "SPC <right>") 'windmove-right)
+(define-key evil-normal-state-map (kbd "SPC <up>") 'windmove-up)
+
+(defun kill-any-buffer ()
+  "Kill current buffer unconditionally."
+  (interactive)
+  (let ((buffer-modified-p nil))
+    (kill-this-buffer)))
+
 (defun my-c-init ()
   (local-set-key (kbd "<backtab>")
                  '(lambda () (interactive) (insert-char ?\t)))
@@ -46,6 +62,7 @@
   (flycheck-mode))
 
 (defun clang-format ()
+  "Format current buffer with clang-format."
   (interactive)
   (let ((prev-point (point)))
     (shell-command-on-region
@@ -54,17 +71,20 @@
     (goto-char prev-point)))
 
 (defun hexify ()
+  "Transform region to hex character codes."
   (interactive)
   (shell-command-on-region
    (point) (mark) "od -An -tx1 -" t))
 
 (defun sudo-save ()
+  "Overwrite current file as root using tramp."
   (interactive)
   (if (not buffer-file-name)
       (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (defun plantuml ()
+  "Interpret the whole buffer or active region with PlantUML."
   (interactive)
   (shell-command-on-region
    (if mark-active (mark) (point-min))
@@ -73,6 +93,7 @@
   (deactivate-mark))
 
 (defun pdflatex ()
+  "Interpret current buffer as a latex markup."
   (interactive)
   (shell-command
    (concat "pdflatex " (buffer-file-name))))
