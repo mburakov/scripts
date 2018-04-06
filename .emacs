@@ -34,7 +34,6 @@
 (global-linum-mode 1)
 (load-theme 'solarized t)
 (push 'company-lsp company-backends)
-(server-start)
 
 (define-key evil-insert-state-map (kbd "<backtab>")
   '(lambda () (interactive) (insert-char ?\t)))
