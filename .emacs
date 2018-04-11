@@ -125,7 +125,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (lsp-ui cquery company-lsp fill-column-indicator color-theme-solarized evil)))
+    (magit lsp-ui cquery company-lsp fill-column-indicator color-theme-solarized evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(visible-bell t))
