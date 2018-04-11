@@ -37,8 +37,10 @@
 
 (define-key evil-insert-state-map (kbd "<backtab>")
   '(lambda () (interactive) (insert-char ?\t)))
+(define-key evil-insert-state-map (kbd "<tab>") 'company-complete)
 (define-key evil-normal-state-map (kbd "<backtab>") 'previous-buffer)
 (define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
+(define-key evil-normal-state-map (kbd "SPC .") 'xref-find-definitions)
 (define-key evil-normal-state-map (kbd "SPC <backspace>") 'kill-any-buffer)
 (define-key evil-normal-state-map (kbd "SPC <down>") 'windmove-down)
 (define-key evil-normal-state-map (kbd "SPC <left>") 'windmove-left)
