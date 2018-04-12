@@ -110,10 +110,6 @@
  '(delete-trailing-lines t)
  '(edit-server-new-frame nil)
  '(enable-local-eval t)
- '(fci-dash-pattern 0.1)
- '(fci-rule-color "#586e75")
- '(fci-rule-column 80)
- '(fci-rule-use-dashes t)
  '(frame-background-mode (quote dark))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -125,7 +121,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (magit lsp-ui cquery company-lsp fill-column-indicator color-theme-solarized evil)))
+    (magit lsp-ui cquery company-lsp color-theme-solarized evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(visible-bell t))
