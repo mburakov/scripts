@@ -37,15 +37,8 @@
 
 (define-key evil-insert-state-map (kbd "<backtab>")
   '(lambda () (interactive) (insert-char ?\t)))
-(define-key evil-insert-state-map (kbd "<tab>") 'company-complete)
-(define-key evil-normal-state-map (kbd "<backtab>") 'previous-buffer)
-(define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
 (define-key evil-normal-state-map (kbd "SPC .") 'xref-find-definitions)
 (define-key evil-normal-state-map (kbd "SPC <backspace>") 'kill-any-buffer)
-(define-key evil-normal-state-map (kbd "SPC <down>") 'windmove-down)
-(define-key evil-normal-state-map (kbd "SPC <left>") 'windmove-left)
-(define-key evil-normal-state-map (kbd "SPC <right>") 'windmove-right)
-(define-key evil-normal-state-map (kbd "SPC <up>") 'windmove-up)
 
 (defun kill-any-buffer ()
   "Kill current buffer unconditionally."
@@ -54,8 +47,6 @@
     (kill-this-buffer)))
 
 (defun my-c-init ()
-  (local-set-key (kbd "<backtab>")
-                 '(lambda () (interactive) (insert-char ?\t)))
   (setq-local c-basic-offset 2)
   (electric-pair-local-mode)
   (lsp-cquery-enable)
