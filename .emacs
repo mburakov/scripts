@@ -39,12 +39,19 @@
   '(lambda () (interactive) (insert-char ?\t)))
 (define-key evil-normal-state-map (kbd "SPC .") 'xref-find-definitions)
 (define-key evil-normal-state-map (kbd "SPC <backspace>") 'kill-any-buffer)
+(define-key evil-normal-state-map (kbd "SPC SPC") 'revert-any-buffer)
 
 (defun kill-any-buffer ()
   "Kill current buffer unconditionally."
   (interactive)
   (let ((buffer-modified-p nil))
     (kill-this-buffer)))
+
+(defun revert-any-buffer ()
+  "Revert current buffer unconditionally."
+  (interactive)
+  (if (not (buffer-modified-p))
+      (revert-buffer t t)))
 
 (defun my-c-init ()
   (setq-local c-basic-offset 2)
