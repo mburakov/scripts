@@ -31,6 +31,7 @@
 (customize-set-variable 'frame-background-mode 'dark)
 (evil-mode)
 (global-company-mode)
+(global-diff-hl-mode)
 (global-linum-mode 1)
 (load-theme 'solarized t)
 (push 'company-lsp company-backends)
@@ -119,7 +120,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (magit lsp-ui cquery company-lsp color-theme-solarized evil)))
+    (diff-hl magit lsp-ui cquery company-lsp color-theme-solarized evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(visible-bell t))
