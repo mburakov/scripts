@@ -25,8 +25,8 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
-    \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+    \ 'cpp': ['clangd'],
+    \ 'c': ['clangd'],
     \ }
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = '/home/mburakov/.config/nvim/settings.json'
@@ -35,13 +35,14 @@ let mapleader = ' '
 
 colorscheme NeoSolarized
 hi comment gui=italic
+hi ALEError gui=underline guifg=red
+hi ALEWarning gui=underline guifg=orange
 
 function CloseSplit()
   let buf = bufnr('%')
   :bp
   exe 'bd!' . buf
 endfunction
-command CloseSplit :call CloseSplit()
 
 function ClangFormat()
   let where = line('.')
@@ -50,8 +51,6 @@ function ClangFormat()
 endfunction
 command ClangFormat :call ClangFormat()
 
-command ClearSigns :sign unplace *
-
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
 imap <TAB> <C-X><C-U>
@@ -59,19 +58,20 @@ imap [ []<LEFT>
 imap { {}<LEFT>
 nmap <S-TAB> :bp<CR>
 nmap <TAB> :bn<CR>
-nmap <leader><BACKSPACE> :CloseSplit<CR>
+nmap <leader><BACKSPACE> :call CloseSplit()<CR>
 nmap <leader>. :call LanguageClient_textDocument_definition()<CR>
 nmap <leader>/ :call LanguageClient_textDocument_hover()<CR>
 nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
-nmap <leader><leader> :noh<CR>
+nmap <leader><leader> :noh<CR>:sign unplace *<CR>
 tmap <ESC> <C-\><C-N>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType c setlocal completefunc=LanguageClient#complete
 autocmd FileType cpp setlocal completefunc=LanguageClient#complete
+autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd User LanguageClientStarted setlocal signcolumn=yes
 autocmd User LanguageClientStopped setlocal signcolumn=auto
