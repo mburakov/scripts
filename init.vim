@@ -5,6 +5,7 @@ set colorcolumn=+1
 set completeopt-=preview
 set expandtab
 set hidden
+set inccommand=nosplit
 set list
 set listchars=tab:»\ ,trail:·
 set number
@@ -38,12 +39,6 @@ hi comment gui=italic
 hi ALEError gui=underline guifg=red
 hi ALEWarning gui=underline guifg=orange
 
-function CloseSplit()
-  let buf = bufnr('%')
-  :bp
-  exe 'bd!' . buf
-endfunction
-
 function ClangFormat()
   let where = line('.')
   :%!clang-format
@@ -58,14 +53,15 @@ imap [ []<LEFT>
 imap { {}<LEFT>
 nmap <S-TAB> :bp<CR>
 nmap <TAB> :bn<CR>
-nmap <leader><BACKSPACE> :call CloseSplit()<CR>
 nmap <leader>. :call LanguageClient_textDocument_definition()<CR>
 nmap <leader>/ :call LanguageClient_textDocument_hover()<CR>
+nmap <leader><BACKSPACE> :bd<CR>
 nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>:sign unplace *<CR>
+nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
