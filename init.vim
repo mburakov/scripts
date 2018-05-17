@@ -67,6 +67,7 @@ tmap <ESC> <C-\><C-N>
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType c setlocal completefunc=LanguageClient#complete
 autocmd FileType cpp setlocal completefunc=LanguageClient#complete
+autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd User LanguageClientStarted setlocal signcolumn=yes
