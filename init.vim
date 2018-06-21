@@ -29,6 +29,7 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['clangd'],
     \ 'c': ['clangd'],
     \ }
+let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = '/home/mburakov/.config/nvim/settings.json'
 let g:airline_powerline_fonts = 1
@@ -55,7 +56,7 @@ nmap <S-TAB> :bp<CR>
 nmap <TAB> :bn<CR>
 nmap <leader>. :call LanguageClient_textDocument_definition()<CR>
 nmap <leader>/ :call LanguageClient_textDocument_hover()<CR>
-nmap <leader><BACKSPACE> :bd<CR>
+nmap <leader><BACKSPACE> :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
@@ -72,7 +73,3 @@ autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd User LanguageClientStarted setlocal signcolumn=yes
 autocmd User LanguageClientStopped setlocal signcolumn=auto
-
-if exists('g:GtkGuiLoaded')
-  call rpcnotify(1, 'Gui', 'Font', 'Iosevka medium 12')
-endif
