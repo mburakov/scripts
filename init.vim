@@ -61,7 +61,7 @@ nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
-nmap <leader><leader> :noh<CR>:sign unplace *<CR>
+nmap <leader><leader> :noh<CR>
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 
