@@ -17,17 +17,42 @@ set wildmode=list:longest
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
+    \     'branch': 'next',
+    \     'do': 'bash install.sh',
     \ }
 Plug 'iCyMind/NeoSolarized'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
+let g:LanguageClient_diagnosticsDisplay = {
+    \ 1: {
+    \     'name': 'Error',
+    \     'texthl': 'ALEError',
+    \     'signText': '',
+    \     'signTexthl': 'ALEErrorSign',
+    \ },
+    \ 2: {
+    \     'name': 'Warning',
+    \     'texthl': 'ALEWarning',
+    \     'signText': '',
+    \     'signTexthl': 'ALEWarningSign',
+    \ },
+    \ 3: {
+    \     'name': 'Information',
+    \     'texthl': 'ALEInfo',
+    \     'signText': '',
+    \     'signTexthl': 'ALEInfoSign',
+    \ },
+    \ 4: {
+    \     'name': 'Hint',
+    \     'texthl': 'ALEInfo',
+    \     'signText': '',
+    \     'signTexthl': 'ALEInfoSign',
+    \ }}
 let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['clangd'],
-    \ 'c': ['clangd'],
+    \     'cpp': ['clangd'],
+    \     'c': ['clangd'],
     \ }
 let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_loadSettings = 1
