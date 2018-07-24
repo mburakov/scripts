@@ -72,6 +72,33 @@ function ClangFormat()
 endfunction
 command ClangFormat :call ClangFormat()
 
+function! PrettifySingle(key, val) abort
+    if a:val['kind'] == 'Function'
+        let a:val['kind'] = '  Function'
+    elseif a:val['kind'] == 'Enum'
+        let a:val['kind'] = '  Enum'
+    elseif a:val['kind'] == 'Reference'
+        let a:val['kind'] = '  Reference'
+    elseif a:val['kind'] == 'Module'
+        let a:val['kind'] = '  Module'
+    elseif a:val['kind'] == 'Class'
+        let a:val['kind'] = '  Class'
+    elseif a:val['kind'] == 'Method'
+        let a:val['kind'] = '  Method'
+    elseif a:val['kind'] == 'Field'
+        let a:val['kind'] = '﬍  Field'
+    endif
+    return a:val
+endfunction
+
+function! CCompletionPrettifier(findstart, base) abort
+    let l:result = LanguageClient#complete(a:findstart, a:base)
+    if type(l:result) == type([])
+        let l:result = map(l:result, function('PrettifySingle'))
+    endif
+    return l:result
+endfunction
+
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
 imap <TAB> <C-X><C-U>
@@ -91,8 +118,8 @@ nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
-autocmd FileType c setlocal completefunc=LanguageClient#complete
-autocmd FileType cpp setlocal completefunc=LanguageClient#complete
+autocmd FileType c setlocal completefunc=CCompletionPrettifier
+autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
