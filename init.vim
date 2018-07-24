@@ -87,6 +87,10 @@ function! PrettifySingle(key, val) abort
         let a:val['kind'] = '  Method'
     elseif a:val['kind'] == 'Field'
         let a:val['kind'] = '﬍  Field'
+    elseif a:val['kind'] == 'Variable'
+        let a:val['kind'] = 'ﳺ  Variable'
+    elseif a:val['kind'] == 'Text'
+        let a:val['kind'] = '  Text'
     endif
     return a:val
 endfunction
