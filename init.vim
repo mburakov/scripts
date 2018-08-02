@@ -25,31 +25,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
-let g:LanguageClient_diagnosticsDisplay = {
-    \ 1: {
-    \     'name': 'Error',
-    \     'texthl': 'ALEError',
-    \     'signText': '',
-    \     'signTexthl': 'ALEErrorSign',
-    \ },
-    \ 2: {
-    \     'name': 'Warning',
-    \     'texthl': 'ALEWarning',
-    \     'signText': '',
-    \     'signTexthl': 'ALEWarningSign',
-    \ },
-    \ 3: {
-    \     'name': 'Information',
-    \     'texthl': 'ALEInfo',
-    \     'signText': '',
-    \     'signTexthl': 'ALEInfoSign',
-    \ },
-    \ 4: {
-    \     'name': 'Hint',
-    \     'texthl': 'ALEInfo',
-    \     'signText': '',
-    \     'signTexthl': 'ALEInfoSign',
-    \ }}
 let g:LanguageClient_serverCommands = {
     \     'cpp': ['clangd'],
     \     'c': ['clangd'],
@@ -73,24 +48,24 @@ endfunction
 command ClangFormat :call ClangFormat()
 
 function! PrettifySingle(key, val) abort
-    if a:val['kind'] == 'Function'
-        let a:val['kind'] = '  Function'
+    if a:val['kind'] == 'Class'
+        let a:val['kind'] = ' '
+    elseif a:val['kind'] == 'Function' || a:val['kind'] == 'Method'
+        let a:val['kind'] = ' '
+    elseif a:val['kind'] == 'Field' || a:val['kind'] == 'Variable'
+        let a:val['kind'] = ' '
     elseif a:val['kind'] == 'Enum'
-        let a:val['kind'] = '  Enum'
-    elseif a:val['kind'] == 'Reference'
-        let a:val['kind'] = '  Reference'
+        let a:val['kind'] = ' '
     elseif a:val['kind'] == 'Module'
-        let a:val['kind'] = '  Module'
-    elseif a:val['kind'] == 'Class'
-        let a:val['kind'] = '  Class'
-    elseif a:val['kind'] == 'Method'
-        let a:val['kind'] = '  Method'
-    elseif a:val['kind'] == 'Field'
-        let a:val['kind'] = '﬍  Field'
-    elseif a:val['kind'] == 'Variable'
-        let a:val['kind'] = 'ﳺ  Variable'
+        let a:val['kind'] = ' '
+    elseif a:val['kind'] == 'Reference'
+        let a:val['kind'] = ' '
     elseif a:val['kind'] == 'Text'
-        let a:val['kind'] = '  Text'
+        let a:val['kind'] = 'Text'
+    elseif a:val['kind'] == 'Keyword'
+        let a:val['kind'] = 'Keyword'
+    elseif a:val['kind'] == 'Snippet'
+        let a:val['kind'] = 'Snippet'
     endif
     return a:val
 endfunction
