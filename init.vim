@@ -61,11 +61,11 @@ function! PrettifySingle(key, val) abort
     elseif a:val['kind'] == 'Reference'
         let a:val['kind'] = ' '
     elseif a:val['kind'] == 'Text'
-        let a:val['kind'] = 'Text'
-    elseif a:val['kind'] == 'Keyword'
-        let a:val['kind'] = 'Keyword'
+        let a:val['kind'] = ' '
     elseif a:val['kind'] == 'Snippet'
-        let a:val['kind'] = 'Snippet'
+        let a:val['kind'] = ' '
+    elseif a:val['kind'] == 'Keyword'
+        let a:val['kind'] = ' '
     endif
     return a:val
 endfunction
