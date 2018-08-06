@@ -40,40 +40,10 @@ hi comment gui=italic
 hi ALEError gui=underline guifg=red
 hi ALEWarning gui=underline guifg=orange
 
-function ClangFormat()
-  let where = line('.')
-  :%!clang-format
-  exe where
-endfunction
-command ClangFormat :call ClangFormat()
-
-function! PrettifySingle(key, val) abort
-    if a:val['kind'] == 'Class'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Function' || a:val['kind'] == 'Method'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Field' || a:val['kind'] == 'Variable'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Enum'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Module'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Reference'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Text'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Snippet'
-        let a:val['kind'] = ' '
-    elseif a:val['kind'] == 'Keyword'
-        let a:val['kind'] = ' '
-    endif
-    return a:val
-endfunction
-
-function! CCompletionPrettifier(findstart, base) abort
-    let l:result = LanguageClient#complete(a:findstart, a:base)
+function CCompletionPrettifier(findstart, base) abort
+    let l:result = LanguageClient_complete(a:findstart, a:base)
     if type(l:result) == type([])
-        let l:result = map(l:result, function('PrettifySingle'))
+        let l:result = luaeval('PrettifyCompletion(_A[1])', [l:result])
     endif
     return l:result
 endfunction
@@ -93,6 +63,7 @@ nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>
+nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 
@@ -104,3 +75,26 @@ autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd User LanguageClientStarted setlocal signcolumn=yes
 autocmd User LanguageClientStopped setlocal signcolumn=auto
+
+lua << EOF
+function PrettifyCompletion(val)
+    local conversion = {
+        Class = " ",
+        Function = " ",
+        Method = " ",
+        Field = " ",
+        Variable = " ",
+        Enum = " ",
+        Module = " ",
+        Reference = " ",
+        Text = " ",
+        Value = " ",
+        Snippet = " ",
+        Keyword = " "
+    }
+    for k, v in ipairs(val) do
+        v["kind"] = conversion[v["kind"]]
+    end
+    return val
+end
+EOF
