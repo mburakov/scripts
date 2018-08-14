@@ -93,7 +93,12 @@ function PrettifyCompletion(val)
         Keyword = " "
     }
     for k, v in ipairs(val) do
-        v["kind"] = conversion[v["kind"]]
+        v["abbr"] = conversion[v["kind"]] .. " " .. v["abbr"]
+        v["kind"] = nil
+        if v["menu"] ~= nil and v["menu"] ~= "" then
+            v["abbr"] = v["abbr"] .. " → " .. v["menu"]
+            v["menu"] = nil
+        end
     end
     return val
 end
