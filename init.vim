@@ -66,6 +66,7 @@ nmap <leader><leader> :noh<CR>
 nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
+vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType c setlocal completefunc=CCompletionPrettifier
@@ -93,7 +94,11 @@ function PrettifyCompletion(val)
         Keyword = " "
     }
     for k, v in ipairs(val) do
-        v["abbr"] = conversion[v["kind"]] .. " " .. v["abbr"]
+        local kind = conversion[v["kind"]]
+        if kind == nil then
+            kind = v["kind"]
+        end
+        v["abbr"] = kind .. " " .. v["abbr"]
         v["kind"] = nil
         if v["menu"] ~= nil and v["menu"] ~= "" then
             v["abbr"] = v["abbr"] .. " → " .. v["menu"]
