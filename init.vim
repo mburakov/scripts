@@ -26,19 +26,19 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let g:LanguageClient_serverCommands = {
-    \     'cpp': ['clangd'],
     \     'c': ['clangd'],
+    \     'cpp': ['clangd'],
+    \     'objcpp': ['clangd'],
     \ }
 let g:LanguageClient_hoverPreview = 'Never'
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath = '/home/mburakov/.config/nvim/settings.json'
+let g:LanguageClient_diagnosticsSignsMax = 0
 let g:airline_powerline_fonts = 1
 let mapleader = ' '
 
 colorscheme NeoSolarized
 hi comment gui=italic
-hi ALEError gui=underline guifg=red
-hi ALEWarning gui=underline guifg=orange
+hi ALEError gui=reverse guifg=red
+hi ALEWarning gui=reverse guifg=orange
 
 function CCompletionPrettifier(findstart, base) abort
     let l:result = LanguageClient_complete(a:findstart, a:base)
@@ -74,8 +74,6 @@ autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
-autocmd User LanguageClientStarted setlocal signcolumn=yes
-autocmd User LanguageClientStopped setlocal signcolumn=auto
 
 lua << EOF
 function PrettifyCompletion(val)

@@ -1,9 +1,8 @@
-env:
-
 window:
   padding:
     x: 0
     y: 0
+  decorations: none
 
 scrolling:
   history: 0
@@ -19,7 +18,6 @@ font:
     family: Iosevka
     style: Italic
   size: 12.0
-  scale_with_dpi: false
 
 colors:
   primary:
@@ -95,6 +93,12 @@ dynamic_title: true
 #
 #   A full list with available key codes can be found here:
 #   https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
+#
+#   Instead of using the name of the keys, the `key` field also supports using
+#   the scancode of the desired key. Scancodes have to be specified as a
+#   decimal number.
+#   This command will allow you to display the hex scancodes for certain keys:
+#     `showkey --scancodes`
 #
 # Values for `mods`:
 #   - Command
