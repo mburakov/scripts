@@ -64,6 +64,7 @@ nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>
 nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
+nmap <leader>d :lua MakeDoxygen()<CR>A
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
@@ -104,5 +105,27 @@ function PrettifyCompletion(val)
         end
     end
     return val
+end
+
+function MakeDoxygen()
+    local lines = {}
+    local linenr = vim.api.nvim_win_get_cursor(0)[1]
+    local point = linenr - 1
+    repeat
+        local line = vim.api.nvim_buf_get_lines(0, linenr - 1, linenr, false)
+        table.insert(lines, line[1])
+        linenr = linenr + 1
+    until (string.find(line[1], ")"))
+    local comment = {"/**", " *"}
+    local brackets = string.match(table.concat(lines), "%((.-)%)")
+    for str in  string.gmatch(brackets, "([^,]+)")
+    do
+        local name = string.match(str, "([^%s]+)%s*$")
+        table.insert(comment, " * @param " .. name)
+    end
+    table.insert(comment, " * @return")
+    table.insert(comment, " */")
+    vim.api.nvim_buf_set_lines(0, point, point, false, comment)
+    vim.api.nvim_win_set_cursor(0, {point + 2, 2})
 end
 EOF
