@@ -74,6 +74,7 @@ autocmd FileType c setlocal completefunc=CCompletionPrettifier
 autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
+autocmd FileType tex set makeprg=pdflatex\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 
 lua << EOF
