@@ -37,8 +37,8 @@ let mapleader = ' '
 
 colorscheme NeoSolarized
 hi comment gui=italic
-hi ALEError gui=reverse guifg=red
-hi ALEWarning gui=reverse guifg=orange
+hi ALEError gui=undercurl guifg=red
+hi ALEWarning gui=undercurl guifg=orange
 
 function CCompletionPrettifier(findstart, base) abort
     let l:result = LanguageClient_complete(a:findstart, a:base)
