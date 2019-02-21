@@ -36,9 +36,6 @@ let g:airline_powerline_fonts = 1
 let mapleader = ' '
 
 colorscheme NeoSolarized
-hi comment gui=italic
-hi ALEError gui=undercurl guifg=red
-hi ALEWarning gui=undercurl guifg=orange
 
 function CCompletionPrettifier(findstart, base) abort
     let l:result = LanguageClient_complete(a:findstart, a:base)
@@ -46,6 +43,21 @@ function CCompletionPrettifier(findstart, base) abort
         let l:result = luaeval('PrettifyCompletion(_A[1])', [l:result])
     endif
     return l:result
+endfunction
+
+function RestoreHighlight() abort
+    hi comment gui=italic
+    hi ALEError gui=undercurl guifg=red
+    hi ALEWarning gui=undercurl guifg=orange
+endfunction
+
+function ToggleBackground() abort
+    if &background == 'dark'
+        set background=light
+    else
+        set background=dark
+    endif
+    call RestoreHighlight()
 endfunction
 
 imap ( ()<LEFT>
@@ -64,6 +76,7 @@ nmap <leader><RIGHT> <C-W><RIGHT>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>
 nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
+nmap <leader>b :call ToggleBackground()<CR>
 nmap <leader>d :lua MakeDoxygen()<CR>A
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
@@ -76,6 +89,7 @@ autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType tex set makeprg=pdflatex\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
+autocmd VimEnter * call RestoreHighlight()
 
 lua << EOF
 function PrettifyCompletion(val)
