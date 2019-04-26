@@ -89,6 +89,7 @@ autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType tex set makeprg=pdflatex\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
+autocmd QuitPre man://* :bd
 autocmd VimEnter * call RestoreHighlight()
 
 lua << EOF
