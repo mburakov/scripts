@@ -94,19 +94,39 @@ autocmd VimEnter * call RestoreHighlight()
 
 lua << EOF
 function PrettifyCompletion(val)
+    -- Potentially wrong glyphs:
+    -- Function
+    -- Constructor
+    -- Text
+    -- Module
+    -- Unit
+    -- Value
     local conversion = {
-        Class = " ",
-        Function = " ",
-        Method = " ",
-        Field = " ",
-        Variable = " ",
-        Enum = " ",
-        Module = " ",
-        Reference = " ",
-        Text = " ",
-        Value = " ",
-        Snippet = " ",
-        Keyword = " "
+        Text = " ",
+        Method = " ",
+        Function = " ",
+        Constructor = " ",
+        Field = " ",
+        Variable = " ",
+        Class = " ",
+        Interface = " ",
+        Module = " ",
+        Property = " ",
+        Unit = " ",
+        Value = " ",
+        Enum = " ",
+        Keyword = " ",
+        Snippet = " ",
+        Color = " ",
+        File = " ",
+        Reference = " ",
+        Folder = " ",
+        EnumMember = " ",
+        Constant = " ",
+        Struct = " ",
+        Event = " ",
+        Operator = " ",
+        TypeParameter = " "
     }
     for k, v in ipairs(val) do
         local kind = conversion[v["kind"]]
@@ -134,8 +154,7 @@ function MakeDoxygen()
     until (string.find(line[1], ")"))
     local comment = {"/**", " *"}
     local brackets = string.match(table.concat(lines), "%((.-)%)")
-    for str in  string.gmatch(brackets, "([^,]+)")
-    do
+    for str in string.gmatch(brackets, "([^,]+)") do
         local name = string.match(str, "([^%s]+)%s*$")
         table.insert(comment, " * @param " .. name)
     end
