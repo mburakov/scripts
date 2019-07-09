@@ -49,6 +49,17 @@ function RestoreHighlight() abort
     hi comment gui=italic
     hi ALEError gui=undercurl guifg=red
     hi ALEWarning gui=undercurl guifg=orange
+    if &background == 'dark'
+        hi clear Pmenu
+        hi clear PmenuSel
+        hi Pmenu guibg=#073642 guifg=#839496
+        hi PmenuSel guibg=#002b36 guifg=#839496
+    else
+        hi clear Pmenu
+        hi clear PmenuSel
+        hi Pmenu guibg=#eee8d5 guifg=#657b83
+        hi PmenuSel guibg=#fdf6e3 guifg=#657b83
+    endif
 endfunction
 
 function ToggleBackground() abort
