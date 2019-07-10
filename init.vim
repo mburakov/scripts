@@ -105,39 +105,37 @@ autocmd VimEnter * call RestoreHighlight()
 
 lua << EOF
 function PrettifyCompletion(val)
-    -- Potentially wrong glyphs:
-    -- Function
-    -- Constructor
-    -- Text
-    -- Module
-    -- Unit
-    -- Value
+    -- Following seem to be unaligned:
+    -- Text is a macro definition
+    -- Value is actually a enum member
+    -- Variable is global static
+    -- Module is a namespace
     local conversion = {
-        Text = " ",
-        Method = " ",
-        Function = " ",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = " ",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        Color = " ",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        EnumMember = " ",
-        Constant = " ",
-        Struct = " ",
-        Event = " ",
-        Operator = " ",
-        TypeParameter = " "
+        Text = " ",
+        Method = " ",
+        Function = " ",
+        Constructor = " ",
+        Field = " ",
+        Variable = " ",
+        Class = " ",
+        Interface = " ",
+        Module = " ",
+        Property = " ",
+        Unit = " ",
+        Value = " ",
+        Enum = " ",
+        Keyword = " ",
+        Snippet = " ",
+        --Color = "",
+        File = " ",
+        Reference = " ",
+        Folder = " ",
+        --EnumMember = "",
+        --Constant = "",
+        Struct = " ",
+        Event = " ",
+        Operator = " ",
+        TypeParameter = " "
     }
     for k, v in ipairs(val) do
         local kind = conversion[v["kind"]]
