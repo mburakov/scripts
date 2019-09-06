@@ -80,6 +80,7 @@ nmap <S-TAB> :bp<CR>
 nmap <TAB> :bn<CR>
 nmap <leader>. :call LanguageClient_textDocument_definition()<CR>
 nmap <leader>/ :call LanguageClient_textDocument_hover()<CR>
+nmap <leader><TAB> :tabnext<CR>
 nmap <leader><BACKSPACE> :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
