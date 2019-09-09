@@ -90,6 +90,7 @@ nmap <leader><leader> :noh<CR>
 nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
 nmap <leader>b :call ToggleBackground()<CR>
 nmap <leader>d :lua MakeDoxygen()<CR>A
+nmap <leader>t :tabe<CR>:term<CR>
 nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
