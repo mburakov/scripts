@@ -28,6 +28,7 @@ call plug#end()
 let g:LanguageClient_serverCommands = {
     \     'c': ['clangd'],
     \     'cpp': ['clangd'],
+    \     'go': ['gopls'],
     \     'objcpp': ['clangd'],
     \ }
 let g:LanguageClient_hoverPreview = 'Never'
@@ -98,6 +99,7 @@ vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType c setlocal completefunc=CCompletionPrettifier
 autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
+autocmd FileType go setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
 autocmd FileType tex set makeprg=pdflatex\ %
