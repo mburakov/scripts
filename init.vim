@@ -97,6 +97,7 @@ tmap <ESC> <C-\><C-N>
 vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 autocmd FileType c setlocal completefunc=CCompletionPrettifier
 autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
 autocmd FileType go setlocal completefunc=CCompletionPrettifier
