@@ -15,6 +15,8 @@ set termguicolors
 set textwidth=80
 set wildmode=list:longest
 
+packadd termdebug
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'autozimu/LanguageClient-neovim', {
     \     'branch': 'next',
@@ -31,9 +33,10 @@ let g:LanguageClient_serverCommands = {
     \     'go': ['gopls'],
     \     'objcpp': ['clangd'],
     \ }
-let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_hoverPreview = 'Never'
 let g:airline_powerline_fonts = 1
+let g:termdebug_wide = 1
 let mapleader = ' '
 
 colorscheme NeoSolarized
