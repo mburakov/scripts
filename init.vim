@@ -103,7 +103,7 @@ autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
 autocmd FileType go setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
 autocmd FileType qf wincmd L
-autocmd FileType tex set makeprg=xelatex\ %
+autocmd FileType tex set makeprg=lualatex\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd QuitPre man://* :bd
 autocmd VimEnter * call RestoreHighlight()
