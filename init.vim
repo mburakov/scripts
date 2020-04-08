@@ -1,5 +1,5 @@
 set autochdir
-set background=dark
+set background=light
 set clipboard+=unnamedplus
 set colorcolumn=+1
 set completeopt-=preview
