@@ -59,7 +59,8 @@ output DP-5 transform 270
 exec swayidle -w \
     timeout 300 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
-    timeout 600 'systemctl suspend'
+    timeout 600 'systemctl suspend' \
+    before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
 #
