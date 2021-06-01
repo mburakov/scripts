@@ -27,7 +27,6 @@ set $menu bemenu-run --no-exec -b --fn 'Sans Serif 11' \
 #
 #xwayland disable
 default_border none
-for_window [app_id="Google-chrome"] inhibit_idle fullscreen
 
 ### Output configuration
 #
@@ -76,11 +75,11 @@ exec swayidle -w \
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "1160:4618:DELL09BE:00_0488:120A_Touchpad" {
+input type:touchpad {
     tap enabled
 }
 
-input "1:1:AT_Translated_Set_2_keyboard" {
+input type:keyboard {
     xkb_layout us,ru
     xkb_options grp:win_space_toggle,grp_led:caps,ctrl:nocaps,compose:ralt
 }
@@ -110,7 +109,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     bindsym $mod+r exec $menu
 
     # Lock the desktop
-    bindsym $mod+l exec systemctl suspend
+    bindsym $mod+l exec killall -SIGUSR1 swayidle
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
