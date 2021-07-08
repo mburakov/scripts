@@ -18,149 +18,136 @@ set wildmode=list:longest
 packadd termdebug
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'autozimu/LanguageClient-neovim', {
-    \     'branch': 'next',
-    \     'do': 'bash install.sh',
-    \ }
 Plug 'iCyMind/NeoSolarized'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
-let g:LanguageClient_serverCommands = {
-    \     'c': ['clangd'],
-    \     'cpp': ['clangd'],
-    \     'go': ['gopls'],
-    \     'objcpp': ['clangd'],
-    \ }
-let g:LanguageClient_diagnosticsSignsMax = 0
-let g:LanguageClient_hoverPreview = 'Never'
 let g:airline_powerline_fonts = 1
-let g:termdebug_wide = 1
 let mapleader = ' '
 
 colorscheme NeoSolarized
-
-function CCompletionPrettifier(findstart, base) abort
-    let l:result = LanguageClient_complete(a:findstart, a:base)
-    if type(l:result) == type([])
-        let l:result = luaeval('PrettifyCompletion(_A[1])', [l:result])
-    endif
-    return l:result
-endfunction
-
-function RestoreHighlight() abort
-    hi comment gui=italic
-    hi ALEError gui=undercurl guifg=red
-    hi ALEWarning gui=undercurl guifg=orange
-    if &background == 'dark'
-        hi clear Pmenu
-        hi clear PmenuSel
-        hi Pmenu guibg=#073642 guifg=#839496
-        hi PmenuSel guibg=#002b36 guifg=#839496
-    else
-        hi clear Pmenu
-        hi clear PmenuSel
-        hi Pmenu guibg=#eee8d5 guifg=#657b83
-        hi PmenuSel guibg=#fdf6e3 guifg=#657b83
-    endif
-endfunction
-
-function ToggleBackground() abort
-    if &background == 'dark'
-        set background=light
-    else
-        set background=dark
-    endif
-    call RestoreHighlight()
-endfunction
+hi LspDiagnosticsUnderlineError gui=undercurl guisp=red
+hi LspDiagnosticsUnderlineWarning gui=undercurl guisp=orange
+hi Pmenu gui=NONE guibg=#eee8d5 guifg=#657b83
+hi PmenuSel gui=NONE guibg=#fdf6e3 guifg=#657b83
+hi comment gui=italic
 
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
-imap <TAB> <C-X><C-U>
+imap <TAB> <C-X><C-O>
 imap [ []<LEFT>
 imap { {}<LEFT>
 nmap <S-TAB> :bp<CR>
 nmap <TAB> :bn<CR>
-nmap <leader>. :call LanguageClient_textDocument_definition()<CR>
-nmap <leader>/ :call LanguageClient_textDocument_hover()<CR>
-nmap <leader><TAB> :tabnext<CR>
 nmap <leader><BACKSPACE> :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap <leader><DOWN> <C-W><DOWN>
 nmap <leader><LEFT> <C-W><LEFT>
 nmap <leader><RIGHT> <C-W><RIGHT>
+nmap <leader><TAB> :tabnext<CR>
 nmap <leader><UP> <C-W><UP>
 nmap <leader><leader> :noh<CR>
-nmap <leader>f :call LanguageClient_textDocument_formatting()<CR>
-nmap <leader>b :call ToggleBackground()<CR>
-nmap <leader>d :lua MakeDoxygen()<CR>A
+nmap <leader>d :lua make_doxygen()<CR>A
 nmap <leader>t :tabe %<CR>
-nmap K :vertical Man<CR>
 tmap <ESC> <C-\><C-N>
 vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-autocmd FileType c setlocal completefunc=CCompletionPrettifier
-autocmd FileType cpp setlocal completefunc=CCompletionPrettifier
-autocmd FileType go setlocal completefunc=CCompletionPrettifier
 autocmd FileType man wincmd L
-autocmd FileType qf wincmd L
 autocmd FileType tex set makeprg=lualatex\ -shell-escape\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
 autocmd QuitPre man://* :bd
-autocmd VimEnter * call RestoreHighlight()
 
 lua << EOF
-function PrettifyCompletion(val)
-    -- Following seem to be unaligned:
-    -- Text is a macro definition
-    -- Value is actually a enum member
-    -- Variable is global static
-    -- Module is a namespace
-    local conversion = {
-        Text = " ",
-        Method = " ",
-        Function = " ",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = " ",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        --Color = "",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        --EnumMember = "",
-        --Constant = "",
-        Struct = " ",
-        Event = " ",
-        Operator = " ",
-        TypeParameter = " "
-    }
-    for k, v in ipairs(val) do
-        local kind = conversion[v["kind"]]
-        if kind == nil then
-            kind = v["kind"]
-        end
-        v["abbr"] = kind .. " " .. v["abbr"]
-        v["kind"] = nil
-        if v["menu"] ~= nil and v["menu"] ~= "" then
-            v["abbr"] = v["abbr"] .. " → " .. v["menu"]
-            v["menu"] = nil
-        end
-    end
-    return val
+require('nvim-treesitter.configs').setup {
+  ensure_installed = 'maintained',
+  highlight = {
+    enable = true,
+  },
+}
+
+local on_attach = function(client, bufnr)
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local opts = { noremap = true, silent = true }
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  buf_set_keymap('n', '<leader>.', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+  buf_set_keymap('n', '<leader>/', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
 end
 
-function MakeDoxygen()
+local nvim_lsp = require('lspconfig')
+local servers = {'clangd', 'gopls'}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = false,
+  }
+)
+
+local vim_lsp_util_text_document_completion_list_to_complete_items =
+  vim.lsp.util.text_document_completion_list_to_complete_items
+vim.lsp.util.text_document_completion_list_to_complete_items = function(result, prefix)
+  -- Following seem to be unaligned:
+  -- Text is a macro definition
+  -- Value is actually a enum member
+  -- Variable is global static
+  -- Module is a namespace
+  local conversion = {
+    Text = ' ',
+    Method = ' ',
+    Function = ' ',
+    Constructor = ' ',
+    Field = ' ',
+    Variable = ' ',
+    Class = ' ',
+    Interface = ' ',
+    Module = ' ',
+    Property = ' ',
+    Unit = ' ',
+    Value = ' ',
+    Enum = ' ',
+    Keyword = ' ',
+    Snippet = ' ',
+    --Color = '',
+    File = ' ',
+    Reference = ' ',
+    Folder = ' ',
+    --EnumMember = '',
+    --Constant = '',
+    Struct = ' ',
+    Event = ' ',
+    Operator = ' ',
+    TypeParameter = ' '
+  }
+  local val =
+    vim_lsp_util_text_document_completion_list_to_complete_items(result, prefix)
+  for _, v in ipairs(val) do
+    local kind = conversion[v['kind']]
+    if kind == nil then
+      kind = v['kind']
+    end
+    v['abbr'] = kind .. ' ' .. v['abbr']
+    v['kind'] = nil
+    if v['menu'] ~= nil and v['menu'] ~= '' then
+      v['abbr'] = v['abbr'] .. ' →  ' .. v['menu']
+      v['menu'] = nil
+    end
+  end
+  return val
+end
+
+function make_doxygen()
     local lines = {}
     local linenr = vim.api.nvim_win_get_cursor(0)[1]
     local point = linenr - 1
