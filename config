@@ -14,7 +14,7 @@ set $mod Mod4
 #set $up k
 #set $right l
 # Your preferred terminal emulator
-set $term termite
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -60,6 +60,11 @@ exec swayidle -w \
          resume 'swaymsg "output * dpms on"' \
     timeout 600 'systemctl suspend' \
     before-sleep 'swaylock -f -c 000000'
+
+mode passthrough {
+    bindsym $mod+Print mode default
+}
+bindsym $mod+Print mode passthrough
 
 ### Input configuration
 #
@@ -242,6 +247,7 @@ input type:keyboard {
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    height 18
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
