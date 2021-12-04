@@ -98,37 +98,32 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 local vim_lsp_util_text_document_completion_list_to_complete_items =
   vim.lsp.util.text_document_completion_list_to_complete_items
 vim.lsp.util.text_document_completion_list_to_complete_items = function(result, prefix)
-  -- Following seem to be unaligned:
-  -- Text is a macro definition
-  -- Value is actually a enum member
-  -- Variable is global static
-  -- Module is a namespace
   local conversion = {
-    Text = ' ',
-    Method = ' ',
-    Function = ' ',
-    Constructor = ' ',
-    Field = ' ',
-    Variable = ' ',
-    Class = ' ',
-    Interface = ' ',
-    Module = ' ',
-    Property = ' ',
-    Unit = ' ',
-    Value = ' ',
-    Enum = ' ',
-    Keyword = ' ',
-    Snippet = ' ',
-    --Color = '',
-    File = ' ',
-    Reference = ' ',
-    Folder = ' ',
-    --EnumMember = '',
-    --Constant = '',
-    Struct = ' ',
-    Event = ' ',
-    Operator = ' ',
-    TypeParameter = ' '
+    Text = ' ',
+    Method = ' ',
+    Function = ' ',
+    Constructor = ' ',
+    Field = ' ',
+    Variable = ' ',
+    Class = ' ',
+    Interface = ' ',
+    Module = ' ',
+    Property = ' ',
+    Unit = ' ',
+    Value = ' ',
+    Enum = ' ',
+    Keyword = ' ',
+    Snippet = ' ',
+    Color = ' ',
+    File = ' ',
+    Reference = ' ',
+    Folder = ' ',
+    EnumMember = ' ',
+    Constant = ' ',
+    Struct = ' ',
+    Event = ' ',
+    Operator = ' ',
+    TypeParameter = ' '
   }
   local val =
     vim_lsp_util_text_document_completion_list_to_complete_items(result, prefix)
