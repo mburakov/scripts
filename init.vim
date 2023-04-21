@@ -52,17 +52,17 @@ nmap <leader><leader> :noh<CR>
 nmap <leader>d :lua make_doxygen()<CR>A
 nmap <leader>t :tabe %<CR>
 tmap <ESC> <C-\><C-N>
-vmap <leader>p :'<,'>w !plantuml -pipe \| feh -<CR><CR>
+vmap <leader>p :'<,'>w !plantuml -pipe \| imv -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType man wincmd L
 autocmd FileType tex set makeprg=lualatex\ -shell-escape\ %
-autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ feh\ -
+autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ imv\ -
 autocmd QuitPre man://* :bd
 
 lua << EOF
 require('nvim-treesitter.configs').setup {
-  ensure_installed = 'maintained',
+  ensure_installed = 'all',
   highlight = {
     enable = true,
   },
@@ -75,11 +75,11 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   buf_set_keymap('n', '<leader>.', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
   buf_set_keymap('n', '<leader>/', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
 end
 
 local nvim_lsp = require('lspconfig')
-local servers = {'clangd', 'gopls'}
+local servers = {'clangd'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

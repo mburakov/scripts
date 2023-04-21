@@ -19,8 +19,7 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu bemenu-run --no-exec -b --fn 'Sans Serif 11' \
-	--tf '#323232' --tb '#323232' --fb '#323232' --ff '#ffffff' \
-	--nf '#323232' --nb '#5c5c5c' --hb '#285577' --hf '#ffffff' \
+	--tf '#323232' --tb '#323232' --hb '#285577' --hf '#ffffff' \
 	| xargs swaymsg exec --
 
 ### Custom config
@@ -57,6 +56,10 @@ exec swayidle -w \
          resume 'swaymsg "output * dpms on"' \
     timeout 600 'systemctl suspend' \
     before-sleep 'swaylock -f -c 000000'
+
+# Inhibit idle for any fullscreen windows
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 
 mode passthrough {
     bindsym $mod+Print mode default
