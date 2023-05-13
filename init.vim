@@ -52,12 +52,12 @@ nmap <leader><leader> :noh<CR>
 nmap <leader>d :lua make_doxygen()<CR>A
 nmap <leader>t :tabe %<CR>
 tmap <ESC> <C-\><C-N>
-vmap <leader>p :'<,'>w !plantuml -pipe \| imv -<CR><CR>
+vmap <leader>p :'<,'>w !plantuml -pipe \| swayimg -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType man wincmd L
 autocmd FileType tex set makeprg=lualatex\ -shell-escape\ %
-autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ imv\ -
+autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ swayimg\ -
 autocmd QuitPre man://* :bd
 
 lua << EOF
