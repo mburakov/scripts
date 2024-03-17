@@ -60,6 +60,7 @@ autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType man wincmd L
 autocmd FileType tex set makeprg=pdflatex\ -shell-escape\ %
 autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ swayimg\ --config=general.transparency=none\ -
+autocmd FileType hare nmap <leader>/ :lua haredoc()<CR>
 autocmd QuitPre man://* :bd
 
 lua << EOF
@@ -166,5 +167,68 @@ function make_doxygen()
     table.insert(comment, " */")
     vim.api.nvim_buf_set_lines(0, point, point, false, comment)
     vim.api.nvim_win_set_cursor(0, {point + 2, 2})
+end
+
+local function charlen(s)
+  local width = 0
+  local esc = false
+  s:gsub('.', function(c)
+    local b = string.byte(c)
+    if esc then
+      if b == 0x6d then
+        esc = false
+      end
+    else
+      if b == 0x1b then
+        esc = true
+      else
+        width = width + 1
+      end
+    end
+  end)
+  return width
+end
+
+function haredoc()
+  local y, x = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = unpack(vim.api.nvim_buf_get_lines(0, y - 1, y, true))
+  local head = line:sub(1, x):match('[%w:]*$')
+  local tail = line:sub(x + 1):match('^[%w:]*')
+
+  local handle = io.popen('haredoc ' .. head .. tail .. ' 2>&1')
+  local lines = {}
+  local max_width = 0
+  for line in handle:lines() do
+    table.insert(lines, ' ' .. line .. ' ')
+    local width = charlen(lines[#lines])
+    if width > max_width then
+      max_width = width
+    end
+  end
+  handle:close()
+
+  if next(lines) == nil then
+    return
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, false, {
+    relative = 'cursor',
+    row = 0,
+    col = 0,
+    width = max_width,
+    height = #lines,
+    anchor = 'SW',
+    style = 'minimal',
+  })
+
+  local chan = vim.api.nvim_open_term(buf, {})
+  vim.api.nvim_chan_send(chan, table.concat(lines, '\r\n'))
+  vim.api.nvim_create_autocmd({'CursorMoved'}, {
+    once = true,
+    callback = function(ev)
+      vim.api.nvim_buf_delete(buf, {force = true})
+    end,
+  })
 end
 EOF
