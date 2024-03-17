@@ -18,6 +18,7 @@ set wildmode=list:longest
 packadd termdebug
 
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'airblade/vim-gitgutter'
 Plug 'iCyMind/NeoSolarized'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
