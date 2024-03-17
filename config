@@ -102,6 +102,11 @@ input type:keyboard {
     bindsym XF86MonBrightnessUp exec brightnessctl set +5%
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
+    # Audio controls
+    bindsym $mod+bracketleft exec cmus-remote -r
+    bindsym $mod+bracketright exec cmus-remote -n
+    bindsym $mod+backslash exec cmus-remote -u
+
 # Basics:
 #
     # Start a terminal
