@@ -79,7 +79,7 @@ local on_attach = function(client, bufnr)
 end
 
 local nvim_lsp = require('lspconfig')
-local servers = {'clangd'}
+local servers = {'clangd', 'lua_ls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
