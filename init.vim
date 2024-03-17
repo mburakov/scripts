@@ -22,6 +22,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'iCyMind/NeoSolarized'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-orgmode/orgmode'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
@@ -62,12 +63,15 @@ autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ swayimg\ --config=
 autocmd QuitPre man://* :bd
 
 lua << EOF
+require('orgmode').setup_ts_grammar()
 require('nvim-treesitter.configs').setup {
   ensure_installed = 'all',
   highlight = {
     enable = true,
   },
 }
+
+require('orgmode').setup()
 
 local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
