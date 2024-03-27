@@ -72,7 +72,9 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-require('orgmode').setup()
+require('orgmode').setup({
+  org_agenda_files = '~/orgfiles/**/*'
+})
 
 local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
