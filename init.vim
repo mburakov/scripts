@@ -194,8 +194,8 @@ end
 function haredoc()
   local y, x = unpack(vim.api.nvim_win_get_cursor(0))
   local line = unpack(vim.api.nvim_buf_get_lines(0, y - 1, y, true))
-  local head = line:sub(1, x):match('[%w:]*$')
-  local tail = line:sub(x + 1):match('^[%w:]*')
+  local head = line:sub(1, x):match('[%w:_]*$')
+  local tail = line:sub(x + 1):match('^[%w:_]*')
 
   local handle = io.popen('haredoc ' .. head .. tail .. ' 2>&1')
   local lines = {}
