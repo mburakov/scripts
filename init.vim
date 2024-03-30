@@ -201,6 +201,7 @@ function haredoc()
   local lines = {}
   local max_width = 0
   for line in handle:lines() do
+    line = line:gsub('\t', '        ')
     table.insert(lines, ' ' .. line .. ' ')
     local width = charlen(lines[#lines])
     if width > max_width then
