@@ -197,10 +197,10 @@ function haredoc()
   local head = line:sub(1, x):match('[%w:_]*$')
   local tail = line:sub(x + 1):match('^[%w:_]*')
 
-  local handle = io.popen('haredoc ' .. head .. tail .. ' 2>&1')
   local lines = {}
   local max_width = 0
-  for line in handle:lines() do
+  local output = vim.fn.system({'haredoc', head .. tail})
+  for line in output:gmatch('[^\n]+') do
     line = line:gsub('\t', '        ')
     table.insert(lines, ' ' .. line .. ' ')
     local width = charlen(lines[#lines])
@@ -208,7 +208,6 @@ function haredoc()
       max_width = width
     end
   end
-  handle:close()
 
   if next(lines) == nil then
     return
