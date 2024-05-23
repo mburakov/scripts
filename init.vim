@@ -64,7 +64,6 @@ autocmd FileType hare nmap <leader>/ :lua haredoc()<CR>
 autocmd QuitPre man://* :bd
 
 lua << EOF
-require('orgmode').setup_ts_grammar()
 require('nvim-treesitter.configs').setup {
   ensure_installed = 'all',
   highlight = {
