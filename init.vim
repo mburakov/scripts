@@ -15,14 +15,12 @@ set termguicolors
 set textwidth=80
 set wildmode=list:longest
 
-packadd termdebug
-
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
-Plug 'iCyMind/NeoSolarized'
+Plug 'maxmx03/solarized.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-orgmode/orgmode'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 call plug#end()
@@ -30,7 +28,7 @@ call plug#end()
 let g:airline_powerline_fonts = 1
 let mapleader = ' '
 
-colorscheme NeoSolarized
+colorscheme solarized
 hi LspDiagnosticsUnderlineError gui=undercurl guisp=red
 hi LspDiagnosticsUnderlineWarning gui=undercurl guisp=orange
 hi Pmenu gui=NONE guibg=#eee8d5 guifg=#657b83
