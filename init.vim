@@ -100,9 +100,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   }
 )
 
-local vim_lsp_util_text_document_completion_list_to_complete_items =
-  vim.lsp.util.text_document_completion_list_to_complete_items
-vim.lsp.util.text_document_completion_list_to_complete_items = function(result, prefix)
+local vim_fn_complete = vim.fn.complete
+vim.fn.complete = function(startcol, matches)
   local conversion = {
     Text = ' ',
     Method = ' ',
@@ -130,21 +129,19 @@ vim.lsp.util.text_document_completion_list_to_complete_items = function(result, 
     Operator = ' ',
     TypeParameter = ' '
   }
-  local val =
-    vim_lsp_util_text_document_completion_list_to_complete_items(result, prefix)
-  for _, v in ipairs(val) do
-    local kind = conversion[v['kind']]
+  for _, v in ipairs(matches) do
+    local kind = conversion[v.kind]
     if kind == nil then
-      kind = v['kind']
+      kind = v.kind
     end
-    v['abbr'] = kind .. ' ' .. v['abbr']
-    v['kind'] = nil
-    if v['menu'] ~= nil and v['menu'] ~= '' then
-      v['abbr'] = v['abbr'] .. ' →  ' .. v['menu']
-      v['menu'] = nil
+    v.kind = nil
+    v.abbr = kind .. ' ' .. v.abbr
+    if v.menu ~= nil and v.menu ~= '' then
+      v.abbr = v.abbr .. ' →  ' .. v.menu
+      v.menu = nil
     end
   end
-  return val
+  return vim_fn_complete(startcol, matches)
 end
 
 function make_doxygen()
