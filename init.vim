@@ -52,12 +52,12 @@ nmap <leader><leader> :noh<CR>
 nmap <leader>d :lua make_doxygen()<CR>A
 nmap <leader>t :tabe %<CR>
 tmap <ESC> <C-\><C-N>
-vmap <leader>p :'<,'>w !plantuml -pipe \| swayimg --config=general.transparency=none -<CR><CR>
+vmap <leader>p :'<,'>w !plantuml -pipe \| swayimg --config=general.transparency=\#00000000 -<CR><CR>
 
 autocmd BufRead,BufNewFile *.uml set filetype=uml
 autocmd FileType man wincmd L
 autocmd FileType tex set makeprg=pdflatex\ -shell-escape\ %
-autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ swayimg\ --config=general.transparency=none\ -
+autocmd FileType uml set makeprg=plantuml\ -pipe\ <\ %\ \\\|\ swayimg\ --config=general.transparency=\\#00000000\ -
 autocmd FileType hare nmap <leader>/ :lua haredoc()<CR>
 autocmd QuitPre man://* :bd
 
