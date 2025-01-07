@@ -42,9 +42,10 @@ output 'Synaptics Inc Non-PnP 0x00BC614E' resolution 1920x1080 position 1920 108
 output 'Iiyama North America PL3288UH 1169612410017' scale 2 position 0 0
 output 'Iiyama North America PL3288UH 1169612410336' scale 2 position 0 0
 output 'Iiyama North America PL3288UH 1169612410402' scale 2 position 0 0
+output 'Iiyama North America PL3288UH 1169621020204' scale 2 position 0 0
 output 'Iiyama North America PL3288UH 1169621020212' scale 2 position 0 0
 output 'Iiyama North America PL3288UH 1169630130371' scale 2 position 0 0
-output eDP-1 position 0 1080
+output eDP-1 position 0 1080 scale 2
 
 ### Idle configuration
 #
