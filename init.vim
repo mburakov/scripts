@@ -29,11 +29,14 @@ let g:airline_powerline_fonts = 1
 let mapleader = ' '
 
 colorscheme solarized
-hi LspDiagnosticsUnderlineError gui=undercurl guisp=red
-hi LspDiagnosticsUnderlineWarning gui=undercurl guisp=orange
 hi Pmenu gui=NONE guibg=#eee8d5 guifg=#657b83
 hi PmenuSel gui=NONE guibg=#fdf6e3 guifg=#657b83
-hi comment gui=italic
+hi Comment gui=italic
+hi DiagnosticUnderlineError gui=undercurl
+hi DiagnosticUnderlineWarn gui=undercurl
+hi DiagnosticUnderlineInfo gui=undercurl
+hi DiagnosticUnderlineHint gui=undercurl
+hi DiagnosticUnderlineOk gui=undercurl
 
 imap ( ()<LEFT>
 imap <S-TAB> <C-V><TAB>
