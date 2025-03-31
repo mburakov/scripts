@@ -11,7 +11,7 @@ vim.cmd [[
 
 _G['vscode-codicons'] = require('vscode-codicons')
 for _, v in ipairs(vim.g.plugs_order) do
-  require('setup.' .. v:gsub('.nvim$', ''))
+  require('setup.' .. v:gsub('%..*$', ''))
 end
 
 vim.cmd.colorscheme('solarized')
