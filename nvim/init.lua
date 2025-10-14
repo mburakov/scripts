@@ -10,6 +10,7 @@ vim.cmd [[
   call plug#end()
 ]]
 
+_G['tab-hack'] = require('tab-hack')
 _G['vscode-codicons'] = require('vscode-codicons')
 for _, v in ipairs(vim.g.plugs_order) do
   require('setup.' .. v:gsub('%..*$', ''))
@@ -44,7 +45,8 @@ vim.keymap.set('n', '<leader><left>', '<c-w><left>')
 vim.keymap.set('n', '<leader><right>', '<c-w><right>')
 vim.keymap.set('n', '<leader><tab>', ':tabnext<cr>')
 vim.keymap.set('n', '<leader><up>', '<c-w><up>')
-vim.keymap.set('n', '<leader>t', ':tabe %<cr>')
+vim.keymap.set('n', '<leader>t',
+  ':lua _G["tab-hack"].reformat_current_table()<cr>')
 vim.keymap.set('n', '<s-tab>', ':bp<cr>')
 vim.keymap.set('n', '<tab>', ':bn<cr>')
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
