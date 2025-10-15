@@ -3,7 +3,6 @@ vim.cmd [[
   Plug 'airblade/vim-gitgutter'
   Plug 'maxmx03/solarized.nvim'
   Plug 'nvim-lualine/lualine.nvim'
-  Plug 'nvim-orgmode/orgmode'
   Plug 'nvim-treesitter/nvim-treesitter',
   \ { 'do': ':TSUpdate', 'branch': 'main' }
   Plug 'tpope/vim-fugitive'
