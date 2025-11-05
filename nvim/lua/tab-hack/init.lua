@@ -5,7 +5,7 @@ local function digest_row(line)
   end
 
   local prefix = line:sub(1, offset - 1)
-  if line:find('^[^|]*|[-%+]+|$') then
+  if line:find('^[^|]*|[%s|-]+|$') then
     return {
       prefix = prefix,
     }
@@ -29,6 +29,7 @@ local function digest_current_table()
   local current_line = vim.api.nvim_win_get_cursor(0)[1]
 
   local begin = current_line
+  local sep = false
   local offset = 0
   local width = {}
   local data = {}
@@ -39,6 +40,7 @@ local function digest_current_table()
       return false
     end
 
+    sep = sep or (row.cells == nil)
     table.insert(data, reverse and 1 or #data + 1, {
       prefix = row.prefix,
       cells = row.cells,
@@ -69,6 +71,7 @@ local function digest_current_table()
 
   return {
     begin = begin,
+    sep = sep,
     offset = offset,
     width = width,
     data = data,
@@ -79,17 +82,21 @@ local function reconstruct_current_table(tab)
   local bufnr = vim.api.nvim_get_current_buf()
   local lines = {}
 
+  local function max(a, b)
+    return a > b and a or b
+  end
+
   for _, row in ipairs(tab.data) do
     local padding = string.rep(' ', tab.offset - #row.prefix)
     local result = row.prefix .. padding .. '|'
     for i, w in ipairs(tab.width) do
+      w = tab.sep and max(w, 3) or w
       if not row.cells then
-        result = result .. string.rep('-', w + 2) ..
-          (i < #tab.width and '+' or '|')
+        result = result .. ' ' .. string.rep('-', w) .. ' |'
       else
         local cell = row.cells[i] or ''
         result = result .. ' ' .. cell ..
-          string.rep(' ', w - #cell + 1) .. '|'
+            string.rep(' ', w - #cell + 1) .. '|'
       end
     end
     table.insert(lines, result)
