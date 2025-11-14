@@ -20,6 +20,7 @@ vim.cmd.colorscheme('solarized')
 vim.opt.autochdir = true
 vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 vim.opt.colorcolumn = '+1'
+vim.opt.diffopt:append { 'vertical' }
 vim.opt.expandtab = true
 vim.opt.list = true
 vim.opt.listchars = 'tab:␉ ,trail:␠'
@@ -28,11 +29,6 @@ vim.opt.shiftwidth = 0
 vim.opt.tabstop = 2
 vim.opt.textwidth = 80
 vim.opt.wildmode = 'list:longest'
-
-vim.cmd [[
-  "vim.opt.diffopt throws an error...
-  set diffopt+=vertical
-]]
 
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<s-tab>', '<c-v><tab>')
