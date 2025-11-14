@@ -49,6 +49,21 @@ vim.keymap.set('v', '<leader>p',
   ":'<,'>w !plantuml -tsvg -pipe |" ..
   'swayimg --config=viewer.transparency=\\#00000000 -<cr>')
 
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = 'markdown',
+  callback = function()
+    local cmdline = 'cmark-gfm'
+    local extensions = { 'table', 'tasklist' }
+    for _, ext in ipairs(extensions) do
+      cmdline = cmdline .. ' -e ' .. ext
+    end
+    vim.keymap.set('n', '<leader>p',
+      ':w !' .. cmdline .. ' |' ..
+      '"$BROWSER" "data:text/html;base64,$(base64 -w 0)"<cr>',
+      { buffer = true })
+  end,
+})
+
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     local mapping = {
