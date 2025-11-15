@@ -46,10 +46,12 @@ local function digest_current_table()
       cells = row.cells,
     })
 
-    offset = #row.prefix > offset and #row.prefix or offset
+    offset = vim.fn.strwidth(row.prefix) > offset and
+        vim.fn.strwidth(row.prefix) or offset
     for column, cell in ipairs(row.cells or {}) do
       width[column] = width[column] or 0
-      width[column] = #cell > width[column] and #cell or width[column]
+      width[column] = vim.fn.strwidth(cell) > width[column] and
+          vim.fn.strwidth(cell) or width[column]
     end
 
     return true
@@ -87,7 +89,7 @@ local function reconstruct_current_table(tab)
   end
 
   for _, row in ipairs(tab.data) do
-    local padding = string.rep(' ', tab.offset - #row.prefix)
+    local padding = string.rep(' ', tab.offset - vim.fn.strwidth(row.prefix))
     local result = row.prefix .. padding .. '|'
     for i, w in ipairs(tab.width) do
       w = tab.sep and max(w, 3) or w
@@ -96,7 +98,7 @@ local function reconstruct_current_table(tab)
       else
         local cell = row.cells[i] or ''
         result = result .. ' ' .. cell ..
-            string.rep(' ', w - #cell + 1) .. '|'
+            string.rep(' ', w - vim.fn.strwidth(cell) + 1) .. '|'
       end
     end
     table.insert(lines, result)
