@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     end
     vim.keymap.set('n', '<leader>p',
       ':w !' .. cmdline .. ' |' ..
-      '"$BROWSER" "data:text/html;base64,$(base64 -w 0)"<cr>',
+      '"$BROWSER" "data:text/html;charset=utf-8;base64,$(base64 -w 0)"<cr>',
       { buffer = true })
   end,
 })
