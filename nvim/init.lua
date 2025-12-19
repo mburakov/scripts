@@ -46,8 +46,9 @@ vim.keymap.set('n', '<s-tab>', ':bp<cr>')
 vim.keymap.set('n', '<tab>', ':bn<cr>')
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('v', '<leader>p',
-  ":'<,'>w !plantuml -tsvg -pipe |" ..
-  'swayimg --config=viewer.transparency=\\#00000000 -<cr>')
+  ":'<,'>w !plantuml -tsvg -pipe | swayimg " ..
+  '--config=viewer.transparency=\\#00000000 ' ..
+  '--config=general.overlay=yes -<cr>')
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = 'markdown',
