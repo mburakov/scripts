@@ -1,3 +1,5 @@
+vim.opt.background = 'light'
+
 vim.cmd [[
   call plug#begin()
   Plug 'airblade/vim-gitgutter'
@@ -40,8 +42,7 @@ vim.keymap.set('n', '<leader><left>', '<c-w><left>')
 vim.keymap.set('n', '<leader><right>', '<c-w><right>')
 vim.keymap.set('n', '<leader><tab>', ':tabnext<cr>')
 vim.keymap.set('n', '<leader><up>', '<c-w><up>')
-vim.keymap.set('n', '<leader>t',
-  ':lua _G["tab-hack"].reformat_current_table()<cr>')
+vim.keymap.set('n', '<leader>t', _G['tab-hack'].reformat_current_table)
 vim.keymap.set('n', '<s-tab>', ':bp<cr>')
 vim.keymap.set('n', '<tab>', ':bn<cr>')
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
@@ -73,8 +74,8 @@ vim.lsp.config('*', {
       ['<leader>.'] = vim.lsp.buf.definition,
     }
     for k, v in pairs(mapping) do
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', k, '', {
-        callback = v,
+      vim.keymap.set('n', k, v, {
+        buffer = bufnr,
         noremap = true,
       })
     end
