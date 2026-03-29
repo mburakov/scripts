@@ -11,6 +11,7 @@ vim.cmd [[
   call plug#end()
 ]]
 
+_G['bropen'] = require('bropen')
 _G['tab-hack'] = require('tab-hack')
 _G['vscode-codicons'] = require('vscode-codicons')
 for _, v in ipairs(vim.g.plugs_order) do
@@ -47,22 +48,24 @@ vim.keymap.set('n', '<s-tab>', ':bp<cr>')
 vim.keymap.set('n', '<tab>', ':bn<cr>')
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('v', '<leader>p',
-  ":'<,'>w !plantuml -tsvg -pipe | swayimg " ..
-  '--config=viewer.transparency=\\#00000000 ' ..
-  '--config=general.overlay=yes -<cr>')
+  ":'<,'>w !plantuml -tsvg -pipe | swayimg  -<cr>")
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = 'markdown',
   callback = function()
-    local cmdline = 'cmark-gfm'
-    local extensions = { 'table', 'tasklist' }
-    for _, ext in ipairs(extensions) do
-      cmdline = cmdline .. ' -e ' .. ext
-    end
-    vim.keymap.set('n', '<leader>p',
-      ':w !' .. cmdline .. ' |' ..
-      '"$BROWSER" "data:text/html;charset=utf-8;base64,$(base64 -w 0)"<cr>',
-      { buffer = true })
+    vim.keymap.set('n', '<leader>p', function()
+      _G.bropen({ 'cmark-gfm', '-e', 'table', '-e', 'tasklist' }, 'html')
+    end, { buffer = true })
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { '*.uml', '*.puml' },
+  callback = function()
+    vim.opt_local.filetype = 'plantuml'
+    vim.keymap.set('n', '<leader>p', function()
+      _G.bropen({ 'plantuml', '-tsvg', '-pipe' }, 'svg')
+    end, { buffer = true })
   end,
 })
 
