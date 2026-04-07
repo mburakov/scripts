@@ -1,21 +1,21 @@
 vim.opt.background = 'light'
 
-vim.cmd [[
-  call plug#begin()
-  Plug 'airblade/vim-gitgutter'
-  Plug 'maxmx03/solarized.nvim'
-  Plug 'nvim-lualine/lualine.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter',
-  \ { 'do': ':TSUpdate', 'branch': 'main' }
-  Plug 'tpope/vim-fugitive'
-  call plug#end()
-]]
+vim.pack.add({
+  'https://github.com/airblade/vim-gitgutter',
+  'https://github.com/maxmx03/solarized.nvim',
+  'https://github.com/nvim-lualine/lualine.nvim',
+  'https://github.com/tpope/vim-fugitive',
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = 'main',
+  }
+})
 
 _G['bropen'] = require('bropen')
 _G['tab-hack'] = require('tab-hack')
 _G['vscode-codicons'] = require('vscode-codicons')
-for _, v in ipairs(vim.g.plugs_order) do
-  require('setup.' .. v:gsub('%..*$', ''))
+for _, v in ipairs(vim.pack.get()) do
+  require('setup.' .. v.spec.name:gsub('%..*$', ''))
 end
 
 vim.cmd.colorscheme('solarized')
