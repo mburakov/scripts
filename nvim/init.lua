@@ -69,7 +69,11 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   end,
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = false
+
 vim.lsp.config('*', {
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
     local mapping = {
       ['<leader>/'] = vim.lsp.buf.hover,
