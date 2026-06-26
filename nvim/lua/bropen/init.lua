@@ -13,7 +13,7 @@ local function async(bufnr, ext, data)
     buffer = bufnr,
     once = true,
     callback = function()
-       os.remove(fname)
+      os.remove(fname)
     end,
   })
 
@@ -21,9 +21,16 @@ local function async(bufnr, ext, data)
   vim.system({ browser, fname })
 end
 
-local function bropen(command, ext)
+local function bropen(command, ext, sel)
   local bufnr = vim.api.nvim_get_current_buf()
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local lines
+  if sel then
+    lines = vim.fn.getregion(
+      vim.fn.getpos('v'), vim.fn.getpos('.'),
+      { type = vim.fn.mode() })
+  else
+    lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  end
   vim.system(command, { stdin = lines }, function(result)
     vim.schedule(function()
       async(bufnr, ext, result.stdout)

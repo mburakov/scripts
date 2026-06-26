@@ -48,7 +48,7 @@ vim.keymap.set('n', '<s-tab>', ':bp<cr>')
 vim.keymap.set('n', '<tab>', ':bn<cr>')
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('v', '<leader>p',
-  ":'<,'>w !plantuml -tsvg -pipe | swayimg  -<cr>")
+  function() _G.bropen({ 'plantuml', '-tsvg', '-pipe' }, 'svg', true) end)
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = 'markdown',
