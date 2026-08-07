@@ -54,7 +54,13 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = 'markdown',
   callback = function()
     vim.keymap.set('n', '<leader>p', function()
-      _G.bropen({ 'cmark-gfm', '-e', 'table', '-e', 'tasklist' }, 'html')
+      local cmdline = { 'cmark-gfm' }
+      local extensions = { 'footnotes', 'table', 'tasklist' }
+      for _, ext in ipairs(extensions) do
+        table.insert(cmdline, '-e')
+        table.insert(cmdline, ext)
+      end
+      _G.bropen(cmdline, 'html')
     end, { buffer = true })
   end,
 })
