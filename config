@@ -24,7 +24,7 @@ set $menu bemenu-run --no-exec -b --fn 'Sans Serif 11' \
 
 ### Custom config
 #
-#xwayland disable
+xwayland disable
 default_border none
 
 ### Output configuration
